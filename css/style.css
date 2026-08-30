@@ -6978,3 +6978,75 @@ body::before{
     left:180%;
 
 }
+
+
+
+/* ==========================================
+   SPACE ENVIRONMENT
+========================================== */
+
+#space-environment{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:-10;
+
+    overflow:hidden;
+
+    pointer-events:none;
+
+}
+
+#starfield{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+}
+
+.nebula{
+
+    position:absolute;
+
+    inset:-20%;
+
+    background:
+
+    radial-gradient(
+        circle at 30% 40%,
+        rgba(76,201,255,.06),
+        transparent 45%
+    ),
+
+    radial-gradient(
+        circle at 70% 70%,
+        rgba(255,255,255,.03),
+        transparent 50%
+    );
+
+    filter:blur(120px);
+
+}
+
+.energy-layer{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+    radial-gradient(
+        circle at center,
+        rgba(76,201,255,.03),
+        transparent 70%
+    );
+
+}
