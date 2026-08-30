@@ -1,828 +1,896 @@
 /* =========================================================
    SEASCAPE COMMERCE
-   AI AGENT NETWORK
+   AI AGENT CONSTELLATION
+   Advanced GSAP Interaction System
    ========================================================= */
 
-gsap.registerPlugin(ScrollTrigger);
+(() => {
 
+    /* -----------------------------------------------------
+       SAFETY CHECK
+       ----------------------------------------------------- */
 
-/* =========================================================
-   01. AGENT DATA
-   ========================================================= */
-
-const agentData = {
-
-    discovery: {
-        title: "Discovery Agent",
-        desc: "Researches markets, audiences, competitors, customer intent, and growth opportunities."
-    },
-
-    marketing: {
-        title: "Marketing Agent",
-        desc: "Creates campaigns, messaging strategies, content, and customer acquisition systems."
-    },
-
-    store: {
-        title: "Store Agent",
-        desc: "Optimizes storefront architecture, navigation, products, merchandising, and conversion paths."
-    },
-
-    support: {
-        title: "Support Agent",
-        desc: "Handles customer interactions, FAQs, ticket routing, service workflows, and retention."
-    },
-
-    analytics: {
-        title: "Analytics Agent",
-        desc: "Measures performance, identifies opportunities, detects trends, and delivers actionable insights."
-    },
-
-    visual: {
-        title: "Visual Agent",
-        desc: "Generates imagery, branding assets, product visuals, creative concepts, and visual experiences."
+    if (typeof gsap === "undefined") {
+        console.warn("GSAP is required for agent-network.js");
+        return;
     }
 
-};
+    if (typeof ScrollTrigger !== "undefined") {
+        gsap.registerPlugin(ScrollTrigger);
+    }
 
 
-/* =========================================================
-   02. DOM REFERENCES
-   ========================================================= */
+    /* -----------------------------------------------------
+       DOM REFERENCES
+       ----------------------------------------------------- */
 
-const network =
-    document.querySelector(".agent-network");
+    const network =
+        document.querySelector(".agent-network");
 
-const wrapper =
-    document.querySelector(".network-wrapper");
+    const wrapper =
+        document.querySelector(".network-wrapper");
 
-const title =
-    document.getElementById("agentTitle");
+    const core =
+        document.querySelector(".agent.core");
 
-const desc =
-    document.getElementById("agentDescription");
+    const agents =
+        gsap.utils.toArray(".agent");
 
-const agents =
-    document.querySelectorAll(".agent");
+    const beams =
+        gsap.utils.toArray(".beam");
 
-const beams =
-    document.querySelectorAll(".beam");
+    const particleField =
+        document.querySelector(".particle-field");
 
+    const title =
+        document.getElementById("agentTitle");
 
-/* =========================================================
-   03. SAFETY CHECK
-   ========================================================= */
-
-if (
-    network &&
-    wrapper &&
-    title &&
-    desc
-) {
+    const description =
+        document.getElementById("agentDescription");
 
 
-    /* =====================================================
-       04. AGENT STATE
-       Prevents GSAP animations from fighting each other.
-       ===================================================== */
+    /*
+       If the constellation isn't present,
+       safely stop this file.
+    */
 
-    const agentStates = new Map();
-
-
-    document
-        .querySelectorAll(".agent:not(.core)")
-        .forEach(agent => {
-
-            const state = {
-
-                floatX: 0,
-
-                floatY: 0,
-
-                mouseX: 0,
-
-                mouseY: 0
-
-            };
-
-            agentStates.set(agent, state);
-
-            /*
-             * Make agent nodes keyboard accessible.
-             */
-
-            agent.setAttribute("tabindex", "0");
-
-            agent.setAttribute(
-                "role",
-                "button"
-            );
-
-        });
+    if (!network || !wrapper) {
+        return;
+    }
 
 
-    /* =====================================================
-       05. UPDATE AGENT INFORMATION
-       ===================================================== */
+    /* -----------------------------------------------------
+       AGENT DATA
+       ----------------------------------------------------- */
 
-    function updateAgentInfo(agent) {
+    const agentData = {
 
-        const key =
-            [...agent.classList]
-                .find(className =>
-                    agentData[className]
-                );
+        discovery: {
+            title: "Discovery Agent",
+            desc:
+                "Researches markets, audiences, competitors, and growth opportunities."
+        },
 
-        if (!key) return;
+        marketing: {
+            title: "Marketing Agent",
+            desc:
+                "Creates campaigns, messaging strategies, content, and customer acquisition systems."
+        },
 
-        const data =
-            agentData[key];
+        store: {
+            title: "Store Agent",
+            desc:
+                "Optimizes storefront architecture, navigation, products, and conversion paths."
+        },
 
-        /*
-         * Animate the information change.
-         */
+        support: {
+            title: "Support Agent",
+            desc:
+                "Handles customer interactions, FAQs, ticket routing, and retention workflows."
+        },
 
-        gsap.to(
-            [title, desc],
-            {
+        analytics: {
+            title: "Analytics Agent",
+            desc:
+                "Measures performance, identifies opportunities, and delivers actionable insights."
+        },
+
+        visual: {
+            title: "Visual Agent",
+            desc:
+                "Generates imagery, branding assets, product visuals, and creative concepts."
+        }
+
+    };
+
+
+    /* -----------------------------------------------------
+       ACCESSIBILITY
+       ----------------------------------------------------- */
+
+    const prefersReducedMotion =
+        window.matchMedia &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+
+    /* -----------------------------------------------------
+       HELPER:
+       IDENTIFY AGENT
+       ----------------------------------------------------- */
+
+    function getAgentKey(agent) {
+
+        if (!agent) return null;
+
+        return Object.keys(agentData).find(key =>
+            agent.classList.contains(key)
+        ) || null;
+
+    }
+
+
+    /* -----------------------------------------------------
+       AGENT INFORMATION PANEL
+       ----------------------------------------------------- */
+
+    function updateAgentInfo(key) {
+
+        if (!key || !agentData[key]) return;
+
+        const data = agentData[key];
+
+        if (title) {
+
+            gsap.to(title, {
                 opacity: 0,
-                y: 10,
+                y: 8,
                 duration: 0.18,
-                stagger: 0.03,
+                ease: "power2.out",
                 onComplete: () => {
 
                     title.textContent =
                         data.title;
 
-                    desc.textContent =
+                    gsap.to(title, {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.45,
+                        ease: "power3.out"
+                    });
+
+                }
+            });
+
+        }
+
+
+        if (description) {
+
+            gsap.to(description, {
+                opacity: 0,
+                y: 8,
+                duration: 0.18,
+                ease: "power2.out",
+                onComplete: () => {
+
+                    description.textContent =
                         data.desc;
 
-                    gsap.to(
-                        [title, desc],
-                        {
-                            opacity: 1,
-                            y: 0,
-                            duration: 0.4,
-                            stagger: 0.04,
-                            ease: "power2.out"
-                        }
-                    );
+                    gsap.to(description, {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.45,
+                        ease: "power3.out"
+                    });
 
                 }
+            });
+
+        }
+
+    }
+
+
+    /* -----------------------------------------------------
+       ACTIVE AGENT
+       ----------------------------------------------------- */
+
+    function activateAgent(agent) {
+
+        if (!agent) return;
+
+        const key =
+            getAgentKey(agent);
+
+        if (!key) return;
+
+        updateAgentInfo(key);
+
+        /*
+           Remove active state from other agents.
+        */
+
+        agents.forEach(item => {
+
+            if (item !== core && item !== agent) {
+
+                item.classList.remove("is-active");
+
+                gsap.to(item, {
+                    scale: 1,
+                    duration: 0.5,
+                    ease: "power3.out"
+                });
+
             }
-        );
 
-    }
-
-
-    /* =====================================================
-       06. CONNECTION BEAM MAP
-       ===================================================== */
-
-    const beamMap = {
-
-        discovery: "#beam-discovery",
-
-        marketing: "#beam-marketing",
-
-        store: "#beam-store",
-
-        support: "#beam-support",
-
-        analytics: "#beam-analytics",
-
-        visual: "#beam-visual"
-
-    };
+        });
 
 
-    /* =====================================================
-       07. ACTIVATE CONNECTION
-       ===================================================== */
+        agent.classList.add("is-active");
 
-    function activateConnection(agent) {
-
-        const key =
-            [...agent.classList]
-                .find(className =>
-                    beamMap[className]
-                );
-
-        if (!key) return;
-
-        const beam =
-            document.querySelector(
-                beamMap[key]
-            );
-
-        if (!beam) return;
 
         /*
-         * Highlight selected agent.
-         */
+           Bring selected agent forward.
+        */
 
         gsap.to(agent, {
-
             scale: 1.06,
+            duration: 0.65,
+            ease: "power3.out"
+        });
 
-            duration: 0.4,
 
-            ease: "power2.out",
+        /*
+           Activate corresponding beam.
+        */
 
-            overwrite: "auto"
+        const beam =
+            document.getElementById(`beam-${key}`);
+
+        if (beam) {
+
+            gsap.killTweensOf(beam);
+
+            gsap.to(beam, {
+                stroke: "rgba(76,201,255,.9)",
+                strokeWidth: 2.5,
+                opacity: 1,
+                duration: 0.5,
+                ease: "power2.out"
+            });
+
+        }
+
+
+        /*
+           Dim inactive beams slightly.
+        */
+
+        beams.forEach(item => {
+
+            if (item !== beam) {
+
+                gsap.to(item, {
+                    opacity: 0.22,
+                    duration: 0.45,
+                    ease: "power2.out"
+                });
+
+            }
+
+        });
+
+    }
+
+
+    /* -----------------------------------------------------
+       RESET CONSTELLATION
+       ----------------------------------------------------- */
+
+    function resetAgents() {
+
+        agents.forEach(agent => {
+
+            if (agent === core) return;
+
+            agent.classList.remove("is-active");
+
+            gsap.to(agent, {
+                scale: 1,
+                duration: 0.6,
+                ease: "power3.out"
+            });
+
+        });
+
+
+        beams.forEach(beam => {
+
+            gsap.to(beam, {
+                stroke: "rgba(255,255,255,.15)",
+                strokeWidth: 1.5,
+                opacity: 1,
+                duration: 0.6,
+                ease: "power2.out"
+            });
+
+        });
+
+    }
+
+
+    /* -----------------------------------------------------
+       AGENT HOVER / POINTER INTERACTION
+       ----------------------------------------------------- */
+
+    agents.forEach(agent => {
+
+        if (agent === core) return;
+
+        const key =
+            getAgentKey(agent);
+
+        if (!key) return;
+
+
+        agent.addEventListener("mouseenter", () => {
+
+            activateAgent(agent);
+
+        });
+
+
+        agent.addEventListener("mouseleave", () => {
+
+            resetAgents();
 
         });
 
 
         /*
-         * Illuminate its connection
-         * to the AI Core.
-         */
+           Keyboard accessibility.
+        */
 
-        gsap.to(beam, {
+        agent.setAttribute("tabindex", "0");
 
-            stroke: "#4cc9ff",
+        agent.addEventListener("focus", () => {
 
-            strokeWidth: 3,
-
-            opacity: 1,
-
-            duration: 0.35,
-
-            ease: "power2.out",
-
-            overwrite: "auto"
-
-        });
-
-    }
-
-
-    /* =====================================================
-       08. DEACTIVATE CONNECTION
-       ===================================================== */
-
-    function deactivateConnection(agent) {
-
-        const key =
-            [...agent.classList]
-                .find(className =>
-                    beamMap[className]
-                );
-
-        if (!key) return;
-
-        const beam =
-            document.querySelector(
-                beamMap[key]
-            );
-
-        if (!beam) return;
-
-        gsap.to(agent, {
-
-            scale: 1,
-
-            duration: 0.4,
-
-            ease: "power2.out",
-
-            overwrite: "auto"
+            activateAgent(agent);
 
         });
 
 
-        gsap.to(beam, {
+        agent.addEventListener("blur", () => {
 
-            stroke: "rgba(255,255,255,0.15)",
-
-            strokeWidth: 1.5,
-
-            opacity: 1,
-
-            duration: 0.4,
-
-            ease: "power2.out",
-
-            overwrite: "auto"
+            resetAgents();
 
         });
 
-    }
+    });
 
 
-    /* =====================================================
-       09. AGENT INTERACTION
-       ===================================================== */
+    /* -----------------------------------------------------
+       CONSTELLATION INTRO
+       ----------------------------------------------------- */
 
-    document
-        .querySelectorAll(".agent:not(.core)")
-        .forEach(agent => {
+    function constellationIntro() {
 
+        if (prefersReducedMotion) {
 
-            agent.addEventListener(
-                "mouseenter",
-                () => {
+            gsap.set(agents, {
+                opacity: 1,
+                scale: 1
+            });
 
-                    updateAgentInfo(agent);
+            return;
 
-                    activateConnection(agent);
-
-                }
-            );
+        }
 
 
-            agent.addEventListener(
-                "mouseleave",
-                () => {
-
-                    deactivateConnection(agent);
-
-                }
-            );
-
-
-            /*
-             * Keyboard accessibility.
-             */
-
-            agent.addEventListener(
-                "focus",
-                () => {
-
-                    updateAgentInfo(agent);
-
-                    activateConnection(agent);
-
-                }
-            );
-
-
-            agent.addEventListener(
-                "blur",
-                () => {
-
-                    deactivateConnection(agent);
-
-                }
-            );
-
-
-            /*
-             * Touch / mobile interaction.
-             */
-
-            agent.addEventListener(
-                "click",
-                () => {
-
-                    updateAgentInfo(agent);
-
-                    activateConnection(agent);
-
-                }
-            );
-
-        });
-
-
-    /* =====================================================
-       10. AGENT ENTRANCE ANIMATION
-       ===================================================== */
-
-    gsap.from(
-        agents,
-        {
-
-            scale: 0,
-
+        gsap.set(agents, {
             opacity: 0,
+            scale: 0.72
+        });
+
+
+        gsap.set(beams, {
+            opacity: 0,
+            strokeDasharray: "8 14",
+            strokeDashoffset: 120
+        });
+
+
+        const intro =
+            gsap.timeline({
+
+                scrollTrigger: {
+                    trigger: network,
+                    start: "top 70%",
+                    once: true
+                }
+
+            });
+
+
+        /*
+           Core appears first.
+        */
+
+        intro.to(core, {
+
+            opacity: 1,
+            scale: 1,
 
             duration: 1.4,
 
-            stagger: 0.12,
+            ease: "power4.out"
 
-            ease: "back.out(1.7)",
-
-            scrollTrigger: {
-
-                trigger: network,
-
-                start: "top 70%",
-
-                once: true
-
-            }
-
-        }
-    );
+        });
 
 
-    /* =====================================================
-       11. ENERGY BEAM ANIMATION
-       ===================================================== */
+        /*
+           Agents emerge outward.
+        */
 
-    if (beams.length) {
-
-        gsap.set(
-            beams,
+        intro.to(
+            agents.filter(agent => agent !== core),
             {
-                strokeDasharray: "15 15",
-                strokeDashoffset: 0
-            }
+
+                opacity: 1,
+                scale: 1,
+
+                duration: 1.1,
+
+                stagger: {
+                    each: 0.12,
+                    from: "center"
+                },
+
+                ease: "back.out(1.5)"
+
+            },
+            "-=0.7"
         );
 
 
-        gsap.to(
-            beams,
-            {
+        /*
+           Connections reveal after nodes.
+        */
 
-                strokeDashoffset: -200,
+        intro.to(beams, {
 
-                duration: 8,
+            opacity: 1,
+            strokeDashoffset: 0,
+
+            duration: 1.5,
+
+            stagger: 0.1,
+
+            ease: "power3.out"
+
+        }, "-=0.8");
+
+    }
+
+
+    constellationIntro();
+
+
+    /* -----------------------------------------------------
+       ENERGY PULSE — AI CORE
+       ----------------------------------------------------- */
+
+    if (core && !prefersReducedMotion) {
+
+        const corePulse =
+            gsap.timeline({
+                repeat: -1,
+                yoyo: true
+            });
+
+
+        corePulse.to(core, {
+
+            scale: 1.045,
+
+            boxShadow:
+                "0 0 70px rgba(76,201,255,.55), 0 0 130px rgba(76,201,255,.18)",
+
+            duration: 2.6,
+
+            ease: "sine.inOut"
+
+        });
+
+
+        /*
+           Core glow gets a slower secondary pulse.
+        */
+
+        const coreGlow =
+            core.querySelector(".core-glow");
+
+
+        if (coreGlow) {
+
+            gsap.to(coreGlow, {
+
+                scale: 1.35,
+                opacity: 0.35,
+
+                duration: 3.5,
+
+                repeat: -1,
+                yoyo: true,
+
+                ease: "sine.inOut"
+
+            });
+
+        }
+
+    }
+
+
+    /* -----------------------------------------------------
+       DATA BEAM MOTION
+       ----------------------------------------------------- */
+
+    if (!prefersReducedMotion) {
+
+        beams.forEach((beam, index) => {
+
+            gsap.to(beam, {
+
+                strokeDashoffset: -120,
+
+                duration: 5 + index * 0.45,
 
                 repeat: -1,
 
                 ease: "none",
 
-                stagger: 0.3
+                delay: index * 0.3
 
-            }
-        );
+            });
 
-    }
-
-
-    /* =====================================================
-       12. FLOATING AGENT MOTION
-       
-       Uses independent state values so floating motion
-       and mouse gravity don't fight over x/y.
-       ===================================================== */
-
-    agentStates.forEach(
-        (state, agent) => {
-
-            const floatAnimation =
-                gsap.timeline({
-                    repeat: -1,
-                    yoyo: true,
-                    ease: "sine.inOut"
-                });
-
-
-            floatAnimation.to(
-                state,
-                {
-
-                    floatX:
-                        gsap.utils.random(-10, 10),
-
-                    floatY:
-                        gsap.utils.random(-15, 15),
-
-                    duration:
-                        gsap.utils.random(4, 8),
-
-                    onUpdate: () => {
-
-                        renderAgent(
-                            agent,
-                            state
-                        );
-
-                    }
-
-                }
-            );
-
-        }
-    );
-
-
-    /* =====================================================
-       13. AGENT RENDER ENGINE
-       Combines floating movement + mouse movement.
-       ===================================================== */
-
-    function renderAgent(
-        agent,
-        state
-    ) {
-
-        gsap.set(
-            agent,
-            {
-
-                x:
-                    state.floatX +
-                    state.mouseX,
-
-                y:
-                    state.floatY +
-                    state.mouseY
-
-            }
-        );
+        });
 
     }
 
 
-    /* =====================================================
-       14. AI CORE BREATHING EFFECT
-       ===================================================== */
+    /* -----------------------------------------------------
+       AGENT FLOATING MOTION
+       ----------------------------------------------------- */
 
-    const core =
-        document.querySelector(".core");
+    if (!prefersReducedMotion) {
 
-    if (core) {
+        agents.forEach((agent, index) => {
+
+            if (agent === core) return;
+
+
+            const baseX =
+                agent.classList.contains("analytics") ||
+                agent.classList.contains("visual")
+                    ? "-50%"
+                    : "0";
+
+
+            /*
+               We animate CSS variables rather than
+               overwriting positional transforms.
+            */
+
+            gsap.set(agent, {
+                "--float-x": "0px",
+                "--float-y": "0px"
+            });
+
+
+            gsap.to(agent, {
+
+                "--float-x":
+                    `${Math.sin(index + 1) * 8}px`,
+
+                "--float-y":
+                    `${index % 2 === 0 ? -10 : 10}px`,
+
+                duration:
+                    4.5 + index * 0.35,
+
+                repeat: -1,
+                yoyo: true,
+
+                ease: "sine.inOut",
+
+                delay: index * 0.25
+
+            });
+
+        });
+
+    }
+
+
+    /* -----------------------------------------------------
+       MOUSE GRAVITY
+       ----------------------------------------------------- */
+
+    let pointerX = 0;
+    let pointerY = 0;
+
+    let targetX = 0;
+    let targetY = 0;
+
+
+    if (!prefersReducedMotion && window.matchMedia("(pointer:fine)").matches) {
+
+        wrapper.addEventListener("pointermove", event => {
+
+            const rect =
+                wrapper.getBoundingClientRect();
+
+            pointerX =
+                event.clientX - rect.left;
+
+            pointerY =
+                event.clientY - rect.top;
+
+            targetX =
+                (pointerX / rect.width - 0.5) * 2;
+
+            targetY =
+                (pointerY / rect.height - 0.5) * 2;
+
+        });
+
+
+        wrapper.addEventListener("pointerleave", () => {
+
+            targetX = 0;
+            targetY = 0;
+
+        });
+
 
         /*
-         * Wait until entrance animation completes.
-         */
+           Smooth gravity loop.
+        */
 
-        gsap.delayedCall(
-            1.8,
-            () => {
+        gsap.ticker.add(() => {
 
-                const coreTL =
-                    gsap.timeline({
-                        repeat: -1,
-                        yoyo: true
-                    });
+            agents.forEach((agent, index) => {
+
+                if (agent === core) return;
 
 
-                coreTL.to(
-                    core,
-                    {
+                const strength =
+                    index % 2 === 0 ? 7 : 4;
 
-                        scale: 1.08,
 
-                        duration: 2,
+                gsap.to(agent, {
 
-                        ease: "power2.inOut"
+                    "--mouse-x":
+                        `${targetX * strength}px`,
 
-                    }
-                );
+                    "--mouse-y":
+                        `${targetY * strength}px`,
 
-            }
-        );
+                    duration: 1.2,
+
+                    overwrite: "auto",
+
+                    ease: "power3.out"
+
+                });
+
+            });
+
+        });
 
     }
 
 
-    /* =====================================================
-       15. CORE GLOW PULSE
-       ===================================================== */
+    /* -----------------------------------------------------
+       PARTICLE FIELD
+       ----------------------------------------------------- */
 
-    const coreGlow =
-        document.querySelector(".core-glow");
+    if (
+        particleField &&
+        !prefersReducedMotion &&
+        particleField.children.length === 0
+    ) {
 
-    if (coreGlow) {
+        const particleCount =
+            window.innerWidth < 768 ? 35 : 80;
 
-        gsap.to(
-            coreGlow,
-            {
 
-                scale: 1.15,
+        for (let i = 0; i < particleCount; i++) {
 
-                opacity: 0.7,
+            const particle =
+                document.createElement("span");
 
-                duration: 2.5,
+            particle.className =
+                "particle";
+
+            particle.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            particleField.appendChild(
+                particle
+            );
+
+
+            gsap.set(particle, {
+
+                x:
+                    Math.random() *
+                    wrapper.offsetWidth,
+
+                y:
+                    Math.random() *
+                    wrapper.offsetHeight,
+
+                opacity:
+                    0.15 +
+                    Math.random() * 0.55,
+
+                scale:
+                    0.5 +
+                    Math.random() * 1.5
+
+            });
+
+
+            gsap.to(particle, {
+
+                x:
+                    `+=${Math.random() * 100 - 50}`,
+
+                y:
+                    `+=${Math.random() * 100 - 50}`,
+
+                opacity:
+                    0.1 +
+                    Math.random() * 0.5,
+
+                duration:
+                    8 + Math.random() * 12,
 
                 repeat: -1,
 
                 yoyo: true,
 
-                ease: "sine.inOut"
+                ease: "sine.inOut",
 
-            }
-        );
+                delay:
+                    Math.random() * 4
+
+            });
+
+        }
 
     }
 
 
-    /* =====================================================
-       16. MOUSE GRAVITY
-       ===================================================== */
+    /* -----------------------------------------------------
+       SLOW CONSTELLATION ROTATION
+       ----------------------------------------------------- */
 
-    let mouseX = 0;
+    if (!prefersReducedMotion) {
 
-    let mouseY = 0;
+        gsap.to(wrapper, {
+
+            "--network-rotation": "1deg",
+
+            duration: 12,
+
+            repeat: -1,
+
+            yoyo: true,
+
+            ease: "sine.inOut"
+
+        });
+
+    }
 
 
-    wrapper.addEventListener(
-        "mousemove",
-        (event) => {
+    /* -----------------------------------------------------
+       MAGNETIC CORE RESPONSE
+       ----------------------------------------------------- */
+
+    if (
+        core &&
+        !prefersReducedMotion &&
+        window.matchMedia("(pointer:fine)").matches
+    ) {
+
+        wrapper.addEventListener("pointermove", event => {
 
             const rect =
                 wrapper.getBoundingClientRect();
 
-
-            mouseX =
+            const x =
                 event.clientX -
-                rect.left;
+                (rect.left + rect.width / 2);
 
-
-            mouseY =
+            const y =
                 event.clientY -
-                rect.top;
+                (rect.top + rect.height / 2);
+
+            gsap.to(core, {
+
+                x: x * 0.025,
+                y: y * 0.025,
+
+                duration: 1,
+
+                ease: "power3.out",
+
+                overwrite: "auto"
+
+            });
+
+        });
 
 
-            agentStates.forEach(
-                (state, agent) => {
+        wrapper.addEventListener("pointerleave", () => {
 
-                    const centerX =
-                        agent.offsetLeft +
-                        agent.offsetWidth / 2;
+            gsap.to(core, {
 
+                x: 0,
+                y: 0,
 
-                    const centerY =
-                        agent.offsetTop +
-                        agent.offsetHeight / 2;
+                duration: 1.2,
 
+                ease: "elastic.out(1,0.5)"
 
-                    const dx =
-                        mouseX -
-                        centerX;
+            });
 
-
-                    const dy =
-                        mouseY -
-                        centerY;
-
-
-                    /*
-                     * Subtle gravitational response.
-                     */
-
-                    state.mouseX =
-                        gsap.utils.clamp(
-                            -20,
-                            20,
-                            dx * 0.025
-                        );
-
-
-                    state.mouseY =
-                        gsap.utils.clamp(
-                            -20,
-                            20,
-                            dy * 0.025
-                        );
-
-
-                    renderAgent(
-                        agent,
-                        state
-                    );
-
-                }
-            );
-
-        }
-    );
-
-
-    /* =====================================================
-       17. RETURN AGENTS WHEN MOUSE LEAVES
-       ===================================================== */
-
-    wrapper.addEventListener(
-        "mouseleave",
-        () => {
-
-            agentStates.forEach(
-                (state, agent) => {
-
-                    gsap.to(
-                        state,
-                        {
-
-                            mouseX: 0,
-
-                            mouseY: 0,
-
-                            duration: 0.8,
-
-                            ease: "power3.out",
-
-                            onUpdate: () => {
-
-                                renderAgent(
-                                    agent,
-                                    state
-                                );
-
-                            }
-
-                        }
-                    );
-
-                }
-            );
-
-        }
-    );
-
-
-    /* =====================================================
-       18. TECH GRID MOTION
-       ===================================================== */
-
-    const techGrid =
-        document.querySelector(".tech-grid");
-
-    if (techGrid) {
-
-        gsap.to(
-            techGrid,
-            {
-
-                backgroundPosition:
-                    "0 1000px",
-
-                duration: 80,
-
-                repeat: -1,
-
-                ease: "none"
-
-            }
-        );
+        });
 
     }
 
 
-    /* =====================================================
-       19. NETWORK PARALLAX
-       ===================================================== */
+    /* -----------------------------------------------------
+       SECTION REVEAL
+       ----------------------------------------------------- */
 
-    gsap.to(
-        ".network-wrapper",
-        {
+    if (
+        typeof ScrollTrigger !== "undefined" &&
+        !prefersReducedMotion
+    ) {
 
-            y: -30,
+        gsap.from(".agent-header", {
 
-            ease: "none",
+            opacity: 0,
+            y: 70,
+
+            duration: 1.2,
+
+            ease: "power4.out",
 
             scrollTrigger: {
 
                 trigger: network,
+                start: "top 82%",
 
-                start: "top bottom",
-
-                end: "bottom top",
-
-                scrub: 1
+                toggleActions:
+                    "play none none reverse"
 
             }
 
-        }
-    );
+        });
 
 
-    /* =====================================================
-       20. NETWORK HEADER REVEAL
-       ===================================================== */
-
-    gsap.from(
-        ".agent-header > *",
-        {
+        gsap.from(".agent-info", {
 
             opacity: 0,
-
-            y: 50,
-
-            duration: 1,
-
-            stagger: 0.12,
-
-            ease: "power3.out",
-
-            scrollTrigger: {
-
-                trigger: ".agent-header",
-
-                start: "top 80%",
-
-                once: true
-
-            }
-
-        }
-    );
-
-
-    /* =====================================================
-       21. AGENT INFO REVEAL
-       ===================================================== */
-
-    gsap.from(
-        ".agent-info",
-        {
-
-            opacity: 0,
-
             y: 40,
 
             duration: 1,
@@ -832,132 +900,56 @@ if (
             scrollTrigger: {
 
                 trigger: ".agent-info",
+                start: "top 90%",
 
-                start: "top 85%",
-
-                once: true
+                toggleActions:
+                    "play none none reverse"
 
             }
 
-        }
-    );
-
-
-    /* =====================================================
-       22. BEAM HOVER PULSE
-       ===================================================== */
-
-    document
-        .querySelectorAll(".agent:not(.core)")
-        .forEach(agent => {
-
-            agent.addEventListener(
-                "mouseenter",
-                () => {
-
-                    const key =
-                        [...agent.classList]
-                            .find(className =>
-                                beamMap[className]
-                            );
-
-                    if (!key) return;
-
-                    const beam =
-                        document.querySelector(
-                            beamMap[key]
-                        );
-
-                    if (!beam) return;
-
-
-                    gsap.to(
-                        beam,
-                        {
-
-                            strokeDasharray:
-                                "4 8",
-
-                            duration: 0.3,
-
-                            overwrite: "auto"
-
-                        }
-                    );
-
-                }
-            );
-
-
-            agent.addEventListener(
-                "mouseleave",
-                () => {
-
-                    const key =
-                        [...agent.classList]
-                            .find(className =>
-                                beamMap[className]
-                            );
-
-                    if (!key) return;
-
-                    const beam =
-                        document.querySelector(
-                            beamMap[key]
-                        );
-
-                    if (!beam) return;
-
-
-                    gsap.to(
-                        beam,
-                        {
-
-                            strokeDasharray:
-                                "15 15",
-
-                            duration: 0.4,
-
-                            overwrite: "auto"
-
-                        }
-                    );
-
-                }
-            );
-
         });
-
-
-    /* =====================================================
-       23. MOBILE POINTER OPTIMIZATION
-       ===================================================== */
-
-    if (
-        window.matchMedia(
-            "(pointer: coarse)"
-        ).matches
-    ) {
-
-        wrapper.style.cursor =
-            "default";
 
     }
 
 
-    /* =====================================================
-       24. REFRESH SCROLLTRIGGER
-       Ensures animations calculate correctly after
-       the page has completely loaded.
-       ===================================================== */
+    /* -----------------------------------------------------
+       INITIAL INFORMATION
+       ----------------------------------------------------- */
 
-    window.addEventListener(
-        "load",
-        () => {
+    if (title && description) {
 
-            ScrollTrigger.refresh();
+        title.textContent =
+            agentData.discovery.title;
 
-        }
-    );
+        description.textContent =
+            agentData.discovery.desc;
 
-}
+    }
+
+
+    /* -----------------------------------------------------
+       CLEAN RESIZE
+       ----------------------------------------------------- */
+
+    let resizeTimer;
+
+    window.addEventListener("resize", () => {
+
+        clearTimeout(resizeTimer);
+
+        resizeTimer = setTimeout(() => {
+
+            if (
+                typeof ScrollTrigger !== "undefined"
+            ) {
+
+                ScrollTrigger.refresh();
+
+            }
+
+        }, 250);
+
+    });
+
+
+})();
