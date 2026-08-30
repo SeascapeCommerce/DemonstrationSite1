@@ -313,3 +313,211 @@ background:rgba(255,255,255,.08);
 
 }
 
+
+
+.agent-network{
+
+    position:relative;
+
+    min-height:140vh;
+
+    background:#050505;
+
+    padding:180px 0;
+
+}
+
+.agent-header{
+
+    text-align:center;
+
+    max-width:900px;
+
+    margin:0 auto 120px;
+
+}
+
+.agent-header h2{
+
+    font-size:clamp(3rem,6vw,7rem);
+
+    font-weight:300;
+
+    margin-bottom:30px;
+
+}
+
+.agent-header p{
+
+    max-width:700px;
+
+    margin:auto;
+
+    color:#9ea3b0;
+
+    font-size:1.2rem;
+
+    line-height:1.8;
+
+}
+
+.section-label{
+
+    color:#4cc9ff;
+
+    letter-spacing:4px;
+
+    font-size:.9rem;
+
+}
+
+
+
+.network-wrapper{
+
+    position:relative;
+
+    width:1200px;
+
+    max-width:95%;
+
+    height:800px;
+
+    margin:auto;
+
+}
+
+.network-lines{
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    inset:0;
+
+}
+
+.network-lines line{
+
+    stroke:rgba(255,255,255,.15);
+
+    stroke-width:1;
+
+}
+
+
+
+.agent{
+
+    position:absolute;
+
+    width:220px;
+
+    height:220px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    background:
+    rgba(255,255,255,.03);
+
+    transition:.4s ease;
+
+    cursor:pointer;
+
+}
+
+.agent:hover{
+
+    transform:translateY(-12px) scale(1.05);
+
+    box-shadow:
+    0 0 40px rgba(76,201,255,.25);
+
+}
+
+.agent span{
+
+    width:120px;
+
+    line-height:1.4;
+
+}
+
+
+.core{
+
+    top:290px;
+    left:490px;
+
+    width:240px;
+    height:240px;
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(76,201,255,.3),
+        rgba(76,201,255,.05)
+    );
+
+    box-shadow:
+    0 0 50px rgba(76,201,255,.4);
+
+}
+
+.discovery{
+
+    left:60px;
+    top:90px;
+
+}
+
+.marketing{
+
+    right:60px;
+    top:90px;
+
+}
+
+.store{
+
+    left:60px;
+    bottom:40px;
+
+}
+
+.support{
+
+    right:60px;
+    bottom:40px;
+
+}
+
+.analytics{
+
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+
+}
+
+.visual{
+
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+
+}
+
