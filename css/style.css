@@ -6932,3 +6932,49 @@ body::before{
     border:1px solid rgba(76,201,255,.15);
 
 }
+
+
+.agent,
+.industry-item,
+.store-card{
+
+    overflow:hidden;
+
+}
+
+.agent::before,
+.industry-item::before,
+.store-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:-150%;
+
+    width:60%;
+
+    height:100%;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.08),
+        transparent
+    );
+
+    transition:.8s;
+
+}
+
+.agent:hover::before,
+.industry-item:hover::before,
+.store-card:hover::before{
+
+    left:180%;
+
+}
