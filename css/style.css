@@ -2966,3 +2966,900 @@ html.lenis body {
     }
 
 }
+
+/* =====================================================
+   LAUNCH SECTION
+   ===================================================== */
+
+.launch-section{
+
+    position:relative;
+
+    min-height:100svh;
+
+    overflow:hidden;
+
+    background:#050505;
+
+    display:flex;
+
+    align-items:center;
+
+    isolation:isolate;
+
+}
+
+
+/* =====================================================
+   BACKGROUND GRID
+   ===================================================== */
+
+.launch-grid{
+
+    position:absolute;
+
+    inset:-20%;
+
+    z-index:-5;
+
+    background-image:
+
+        linear-gradient(
+            rgba(255,255,255,.035) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.035) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        90px 90px;
+
+    transform:
+        perspective(900px)
+        rotateX(65deg)
+        translateY(15%);
+
+    transform-origin:center;
+
+    opacity:.45;
+
+    pointer-events:none;
+
+}
+
+
+/* =====================================================
+   ATMOSPHERIC GLOWS
+   ===================================================== */
+
+.launch-glow{
+
+    position:absolute;
+
+    width:50vw;
+
+    height:50vw;
+
+    max-width:800px;
+
+    max-height:800px;
+
+    border-radius:50%;
+
+    pointer-events:none;
+
+    filter:blur(80px);
+
+    opacity:.22;
+
+    z-index:-4;
+
+}
+
+
+.launch-glow-one{
+
+    top:-20%;
+
+    right:-10%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(76,201,255,.55),
+            transparent 70%
+        );
+
+}
+
+
+.launch-glow-two{
+
+    bottom:-30%;
+
+    left:-15%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(76,201,255,.25),
+            transparent 70%
+        );
+
+}
+
+
+/* =====================================================
+   OPTIONAL VIDEO
+   ===================================================== */
+
+.launch-media{
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:-6;
+
+    pointer-events:none;
+
+    opacity:.15;
+
+}
+
+
+.launch-video{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    filter:
+        saturate(.35)
+        contrast(1.2);
+
+}
+
+
+.launch-media-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            180deg,
+            #050505 0%,
+            transparent 35%,
+            transparent 65%,
+            #050505 100%
+        );
+
+}
+
+
+/* =====================================================
+   CONTAINER
+   ===================================================== */
+
+.launch-container{
+
+    position:relative;
+
+    width:100%;
+
+    min-height:100svh;
+
+    padding:
+        8rem
+        8vw
+        4rem;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+}
+
+
+/* =====================================================
+   TOP META
+   ===================================================== */
+
+.launch-meta{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    width:100%;
+
+}
+
+
+.launch-meta .section-label{
+
+    font-size:.72rem;
+
+}
+
+
+.launch-status{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    color:#9ea3b0;
+
+    font-size:.68rem;
+
+    letter-spacing:3px;
+
+}
+
+
+.launch-status::before{
+
+    content:"";
+
+    width:6px;
+
+    height:6px;
+
+    border-radius:50%;
+
+    background:#4cc9ff;
+
+    box-shadow:
+        0 0 10px #4cc9ff;
+
+}
+
+
+/* =====================================================
+   MAIN CONTENT
+   ===================================================== */
+
+.launch-content{
+
+    position:relative;
+
+    z-index:3;
+
+    max-width:1100px;
+
+    margin-top:auto;
+
+    margin-bottom:auto;
+
+}
+
+
+.launch-eyebrow{
+
+    margin-bottom:2rem;
+
+    color:#4cc9ff;
+
+    font-size:.75rem;
+
+    letter-spacing:5px;
+
+}
+
+
+.launch-title{
+
+    margin:0;
+
+    font-size:
+        clamp(
+            5rem,
+            13vw,
+            13rem
+        );
+
+    font-weight:300;
+
+    line-height:.78;
+
+    letter-spacing:-.075em;
+
+    text-transform:uppercase;
+
+}
+
+
+.launch-title span{
+
+    display:block;
+
+    margin-left:8vw;
+
+    color:transparent;
+
+    -webkit-text-stroke:
+        1px
+        rgba(255,255,255,.65);
+
+}
+
+
+.launch-description{
+
+    max-width:520px;
+
+    margin-top:3rem;
+
+    margin-left:8vw;
+
+    color:#9ea3b0;
+
+    font-size:1.1rem;
+
+    line-height:1.8;
+
+}
+
+
+/* =====================================================
+   ACTIONS
+   ===================================================== */
+
+.launch-actions{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:1rem;
+
+    margin-top:2.5rem;
+
+    margin-left:8vw;
+
+}
+
+
+.launch-button{
+
+    min-height:56px;
+
+    padding:
+        0
+        26px;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:25px;
+
+    border-radius:999px;
+
+    text-decoration:none;
+
+    font-size:.85rem;
+
+    letter-spacing:1px;
+
+    transition:
+        transform .45s cubic-bezier(.16,1,.3,1),
+        background .35s ease,
+        border-color .35s ease,
+        box-shadow .35s ease;
+
+}
+
+
+.launch-button-primary{
+
+    color:#050505;
+
+    background:#ffffff;
+
+}
+
+
+.launch-button-primary:hover{
+
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 15px 50px
+        rgba(255,255,255,.15);
+
+}
+
+
+.launch-button-secondary{
+
+    color:#ffffff;
+
+    border:
+        1px solid
+        rgba(255,255,255,.2);
+
+    background:
+        rgba(255,255,255,.025);
+
+    backdrop-filter:blur(15px);
+
+}
+
+
+.launch-button-secondary:hover{
+
+    transform:
+        translateY(-5px);
+
+    background:
+        rgba(255,255,255,.08);
+
+    border-color:
+        rgba(255,255,255,.4);
+
+}
+
+
+.launch-button-arrow{
+
+    font-size:1.2rem;
+
+    transition:
+        transform .35s ease;
+
+}
+
+
+.launch-button-primary:hover
+.launch-button-arrow{
+
+    transform:
+        translate(4px,-4px);
+
+}
+
+
+/* =====================================================
+   ORBITAL SYSTEM
+   ===================================================== */
+
+.launch-orbit-system{
+
+    position:absolute;
+
+    right:-5vw;
+
+    top:50%;
+
+    width:
+        min(
+            52vw,
+            760px
+        );
+
+    aspect-ratio:1;
+
+    transform:
+        translateY(-50%);
+
+    pointer-events:none;
+
+    opacity:.75;
+
+}
+
+
+/* =====================================================
+   ORBITS
+   ===================================================== */
+
+.launch-orbit{
+
+    position:absolute;
+
+    inset:50% auto auto 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    border-radius:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+}
+
+
+.launch-orbit-one{
+
+    width:35%;
+
+    aspect-ratio:1;
+
+}
+
+
+.launch-orbit-two{
+
+    width:62%;
+
+    aspect-ratio:1;
+
+}
+
+
+.launch-orbit-three{
+
+    width:90%;
+
+    aspect-ratio:1;
+
+}
+
+
+/* =====================================================
+   ORBIT ACCENTS
+   ===================================================== */
+
+.launch-orbit::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:7px;
+
+    height:7px;
+
+    border-radius:50%;
+
+    background:#4cc9ff;
+
+    box-shadow:
+        0 0 15px #4cc9ff,
+        0 0 35px rgba(76,201,255,.7);
+
+}
+
+
+.launch-orbit-one::after{
+
+    top:10%;
+
+    left:12%;
+
+}
+
+
+.launch-orbit-two::after{
+
+    right:8%;
+
+    bottom:18%;
+
+}
+
+
+.launch-orbit-three::after{
+
+    top:30%;
+
+    right:4%;
+
+}
+
+
+/* =====================================================
+   CORE
+   ===================================================== */
+
+.launch-core{
+
+    position:absolute;
+
+    top:50%;
+
+    left:50%;
+
+    width:110px;
+
+    height:110px;
+
+    transform:
+        translate(-50%,-50%);
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(76,201,255,.9) 0%,
+            rgba(76,201,255,.25) 25%,
+            rgba(76,201,255,.05) 55%,
+            transparent 72%
+        );
+
+    box-shadow:
+        0 0 50px
+        rgba(76,201,255,.35);
+
+}
+
+
+.launch-core-inner{
+
+    width:24px;
+
+    height:24px;
+
+    border-radius:50%;
+
+    background:#ffffff;
+
+    box-shadow:
+        0 0 15px #ffffff,
+        0 0 45px #4cc9ff,
+        0 0 90px rgba(76,201,255,.8);
+
+}
+
+
+/* =====================================================
+   BOTTOM SYSTEM BAR
+   ===================================================== */
+
+.launch-footer{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    padding-top:2rem;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.1);
+
+    color:#626873;
+
+    font-size:.62rem;
+
+    letter-spacing:3px;
+
+}
+
+
+.launch-footer span{
+
+    white-space:nowrap;
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media (max-width:900px){
+
+    .launch-container{
+
+        padding:
+            7rem
+            6vw
+            3rem;
+
+    }
+
+
+    .launch-orbit-system{
+
+        right:-25%;
+
+        width:75vw;
+
+        opacity:.4;
+
+    }
+
+
+    .launch-title{
+
+        font-size:
+            clamp(
+                4rem,
+                15vw,
+                8rem
+            );
+
+    }
+
+
+    .launch-description,
+    .launch-actions{
+
+        margin-left:4vw;
+
+    }
+
+
+    .launch-footer{
+
+        overflow:hidden;
+
+    }
+
+}
+
+
+@media (max-width:600px){
+
+    .launch-section{
+
+        min-height:
+            850px;
+
+    }
+
+
+    .launch-container{
+
+        min-height:
+            850px;
+
+        padding:
+            6rem
+            5vw
+            2rem;
+
+    }
+
+
+    .launch-meta{
+
+        align-items:flex-start;
+
+    }
+
+
+    .launch-status{
+
+        display:none;
+
+    }
+
+
+    .launch-eyebrow{
+
+        font-size:.62rem;
+
+        letter-spacing:3px;
+
+    }
+
+
+    .launch-title{
+
+        font-size:
+            clamp(
+                3.8rem,
+                18vw,
+                6rem
+            );
+
+        line-height:.82;
+
+    }
+
+
+    .launch-title span{
+
+        margin-left:4vw;
+
+    }
+
+
+    .launch-description{
+
+        margin-left:4vw;
+
+        margin-top:2rem;
+
+        font-size:1rem;
+
+    }
+
+
+    .launch-actions{
+
+        margin-left:4vw;
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+
+    .launch-button{
+
+        width:auto;
+
+    }
+
+
+    .launch-orbit-system{
+
+        right:-55%;
+
+        top:35%;
+
+        width:110vw;
+
+        opacity:.25;
+
+    }
+
+
+    .launch-footer{
+
+        justify-content:flex-start;
+
+        overflow-x:auto;
+
+        padding-bottom:.5rem;
+
+    }
+
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+   ===================================================== */
+
+@media (prefers-reduced-motion:reduce){
+
+    .launch-grid{
+
+        transform:none;
+
+    }
+
+    .launch-button{
+
+        transition:none;
+
+    }
+
+}
