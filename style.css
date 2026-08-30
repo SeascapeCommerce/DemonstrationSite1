@@ -1,645 +1,1044 @@
-:root{
+/* =========================================================
+   SEASCAPE COMMERCE
+   MASTER STYLESHEET
+   ========================================================= */
 
---bg:#050505;
 
---text:#ffffff;
+/* =========================================================
+   01. ROOT VARIABLES
+   ========================================================= */
 
---muted:#9ea3b0;
+:root {
 
---accent:#4cc9ff;
+    --bg: #050505;
 
-}
+    --text: #ffffff;
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+    --muted: #9ea3b0;
 
-html{
-scroll-behavior:smooth;
-}
+    --accent: #4cc9ff;
 
-body{
+    --border: rgba(255, 255, 255, 0.15);
 
-background:var(--bg);
-
-color:var(--text);
-
-font-family:
-Inter,
-Helvetica,
-Arial,
-sans-serif;
-
-overflow-x:hidden;
-
-}
-
-.hero{
-
-position:relative;
-
-height:100vh;
-
-overflow:hidden;
-
-}
-
-.hero video{
-
-position:absolute;
-
-width:100%;
-
-height:100%;
-
-object-fit:cover;
-
-}
-
-.hero-overlay{
-
-position:absolute;
-
-inset:0;
-
-background:
-linear-gradient(
-180deg,
-rgba(0,0,0,.1),
-rgba(0,0,0,.8)
-);
-
-}
-
-.hero-content{
-
-position:relative;
-
-z-index:10;
-
-height:100%;
-
-display:flex;
-
-flex-direction:column;
-
-justify-content:center;
-
-padding-left:10vw;
-
-max-width:900px;
-
-}
-
-.headline{
-
-font-size:clamp(4rem,10vw,9rem);
-
-font-weight:300;
-
-line-height:.9;
-
-letter-spacing:-4px;
+    --glass: rgba(255, 255, 255, 0.03);
 
 }
 
 
-.starfield{
+/* =========================================================
+   02. GLOBAL RESET
+   ========================================================= */
 
-height:100vh;
+* {
 
-background-image:
-radial-gradient(white 1px, transparent 1px);
+    margin: 0;
 
-background-size:50px 50px;
+    padding: 0;
 
-opacity:.4;
-
-}
-
-
-
-.subhead{
-
-margin-top:2rem;
-
-font-size:1.2rem;
-
-max-width:600px;
-
-color:var(--muted);
-
-}
-
-.cta{
-
-display:inline-flex;
-
-margin-top:2rem;
-
-padding:16px 30px;
-
-border:1px solid rgba(255,255,255,.2);
-
-text-decoration:none;
-
-color:white;
-
-border-radius:999px;
-
-transition:.3s;
-
-}
-
-.cta:hover{
-
-transform:translateY(-4px);
-
-background:rgba(255,255,255,.08);
+    box-sizing: border-box;
 
 }
 
 
+html {
 
-.mission-control{
-
-    position:relative;
-    height:500vh;
-
-}
-
-.mission-container{
-
-    position:sticky;
-    top:0;
-
-    height:100vh;
-
-    display:grid;
-    grid-template-columns:1fr 1fr;
-
-    align-items:center;
-
-    padding:0 8vw;
-
-    background:#050505;
-
-}
-
-.mission-left{
-
-    max-width:600px;
-
-}
-
-.mission-stage{
-
-    position:absolute;
-
-    opacity:0;
-
-    transform:translateY(80px);
-
-}
-
-.mission-stage h2{
-
-    font-size:clamp(3rem,5vw,6rem);
-
-    font-weight:300;
-
-    margin-bottom:1rem;
-
-}
-
-.mission-number{
-
-    color:#4cc9ff;
-
-    letter-spacing:4px;
-
-    font-size:.9rem;
-
-}
-
-.mission-stage p{
-
-    color:#9ea3b0;
-
-    font-size:1.2rem;
-
-    max-width:500px;
-
-    line-height:1.8;
+    scroll-behavior: smooth;
 
 }
 
 
+body {
 
-.mission-right{
+    background: var(--bg);
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    color: var(--text);
 
-}
+    font-family:
+        Inter,
+        Helvetica,
+        Arial,
+        sans-serif;
 
-.mission-circle{
-
-    position:relative;
-
-    width:500px;
-    height:500px;
+    overflow-x: hidden;
 
 }
 
-.center-core{
 
-    position:absolute;
+/* =========================================================
+   03. NAVIGATION
+   ========================================================= */
 
-    top:50%;
-    left:50%;
+.navbar {
 
-    width:40px;
-    height:40px;
+    position: fixed;
 
-    background:#4cc9ff;
+    top: 0;
 
-    border-radius:50%;
+    left: 0;
 
-    transform:translate(-50%,-50%);
+    width: 100%;
+
+    padding: 30px 8vw;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    z-index: 9999;
+
+    background: rgba(5, 5, 5, 0.2);
+
+    backdrop-filter: blur(20px);
+
+    -webkit-backdrop-filter: blur(20px);
+
+}
+
+
+.logo {
+
+    font-size: 1.1rem;
+
+    letter-spacing: 4px;
+
+    font-weight: 600;
+
+}
+
+
+.nav-links {
+
+    display: flex;
+
+    gap: 40px;
+
+}
+
+
+.nav-links a {
+
+    color: var(--text);
+
+    text-decoration: none;
+
+    font-size: 0.95rem;
+
+    transition: color 0.3s ease;
+
+}
+
+
+.nav-links a:hover {
+
+    color: var(--accent);
+
+}
+
+
+/* =========================================================
+   04. HERO
+   ========================================================= */
+
+.hero {
+
+    position: relative;
+
+    height: 100vh;
+
+    min-height: 700px;
+
+    overflow: hidden;
+
+}
+
+
+.hero video {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    z-index: 1;
+
+}
+
+
+.hero-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.1),
+            rgba(0, 0, 0, 0.8)
+        );
+
+    z-index: 2;
+
+}
+
+
+.hero-content {
+
+    position: relative;
+
+    z-index: 10;
+
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding-left: 10vw;
+
+    max-width: 900px;
+
+}
+
+
+.eyebrow {
+
+    margin-bottom: 20px;
+
+    color: var(--accent);
+
+    font-size: 0.85rem;
+
+    letter-spacing: 4px;
+
+    font-weight: 500;
+
+}
+
+
+.headline {
+
+    font-size: clamp(4rem, 10vw, 9rem);
+
+    font-weight: 300;
+
+    line-height: 0.9;
+
+    letter-spacing: -4px;
+
+}
+
+
+.subhead {
+
+    margin-top: 2rem;
+
+    font-size: 1.2rem;
+
+    max-width: 600px;
+
+    color: var(--muted);
+
+    line-height: 1.7;
+
+}
+
+
+.cta {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: fit-content;
+
+    margin-top: 2rem;
+
+    padding: 16px 30px;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    text-decoration: none;
+
+    color: var(--text);
+
+    border-radius: 999px;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        border-color 0.3s ease;
+
+}
+
+
+.cta:hover {
+
+    transform: translateY(-4px);
+
+    background: rgba(255, 255, 255, 0.08);
+
+    border-color: rgba(255, 255, 255, 0.4);
+
+}
+
+
+/* =========================================================
+   05. STARFIELD
+   ========================================================= */
+
+.stars {
+
+    position: relative;
+
+    min-height: 100vh;
+
+    background: #050505;
+
+    overflow: hidden;
+
+}
+
+
+.starfield {
+
+    width: 100%;
+
+    height: 100vh;
+
+    background-image:
+        radial-gradient(
+            white 1px,
+            transparent 1px
+        );
+
+    background-size: 50px 50px;
+
+    opacity: 0.4;
+
+}
+
+
+/* =========================================================
+   06. MISSION CONTROL
+   ========================================================= */
+
+.mission-control {
+
+    position: relative;
+
+    height: 500vh;
+
+    background: #050505;
+
+}
+
+
+.mission-container {
+
+    position: sticky;
+
+    top: 0;
+
+    height: 100vh;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    align-items: center;
+
+    padding: 0 8vw;
+
+    background: #050505;
+
+}
+
+
+.mission-left {
+
+    position: relative;
+
+    max-width: 600px;
+
+    min-height: 400px;
+
+}
+
+
+.mission-stage {
+
+    position: absolute;
+
+    top: 50%;
+
+    left: 0;
+
+    width: 100%;
+
+    opacity: 0;
+
+    transform: translateY(80px);
+
+}
+
+
+.mission-stage h2 {
+
+    font-size: clamp(3rem, 5vw, 6rem);
+
+    font-weight: 300;
+
+    margin-bottom: 1rem;
+
+    line-height: 0.95;
+
+}
+
+
+.mission-number {
+
+    color: var(--accent);
+
+    letter-spacing: 4px;
+
+    font-size: 0.9rem;
+
+}
+
+
+.mission-stage p {
+
+    color: var(--muted);
+
+    font-size: 1.2rem;
+
+    max-width: 500px;
+
+    line-height: 1.8;
+
+}
+
+
+.mission-right {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+
+.mission-circle {
+
+    position: relative;
+
+    width: 500px;
+
+    height: 500px;
+
+}
+
+
+.center-core {
+
+    position: absolute;
+
+    top: 50%;
+
+    left: 50%;
+
+    width: 80px;
+
+    height: 80px;
+
+    background: var(--accent);
+
+    border-radius: 50%;
+
+    transform: translate(-50%, -50%);
 
     box-shadow:
-    0 0 40px #4cc9ff,
-    0 0 80px #4cc9ff;
+        0 0 40px var(--accent),
+        0 0 80px var(--accent);
 
-}
-
-.orbit{
-
-    position:absolute;
-
-    border:1px solid rgba(255,255,255,.15);
-
-    border-radius:50%;
-
-    top:50%;
-    left:50%;
-
-    transform:translate(-50%,-50%);
-
-}
-
-.orbit-1{
-
-    width:180px;
-    height:180px;
-
-}
-
-.orbit-2{
-
-    width:300px;
-    height:300px;
-
-}
-
-.orbit-3{
-
-    width:420px;
-    height:420px;
+    z-index: 5;
 
 }
 
 
+.orbit {
 
-.agent-network{
+    position: absolute;
 
-    position:relative;
+    top: 50%;
 
-    min-height:140vh;
+    left: 50%;
 
-    background:#050505;
+    border: 1px solid rgba(255, 255, 255, 0.15);
 
-    padding:180px 0;
+    border-radius: 50%;
 
-}
-
-.agent-header{
-
-    text-align:center;
-
-    max-width:900px;
-
-    margin:0 auto 120px;
-
-}
-
-.agent-header h2{
-
-    font-size:clamp(3rem,6vw,7rem);
-
-    font-weight:300;
-
-    margin-bottom:30px;
-
-}
-
-.agent-header p{
-
-    max-width:700px;
-
-    margin:auto;
-
-    color:#9ea3b0;
-
-    font-size:1.2rem;
-
-    line-height:1.8;
-
-}
-
-.section-label{
-
-    color:#4cc9ff;
-
-    letter-spacing:4px;
-
-    font-size:.9rem;
+    transform: translate(-50%, -50%);
 
 }
 
 
+.orbit-1 {
 
-.network-wrapper{
+    width: 180px;
 
-    position:relative;
-
-    width:1200px;
-
-    max-width:95%;
-
-    height:800px;
-
-    margin:auto;
-
-}
-
-.network-lines{
-
-    position:absolute;
-
-    width:100%;
-    height:100%;
-
-    inset:0;
-
-}
-
-.network-lines line{
-
-    stroke:rgba(255,255,255,.15);
-
-    stroke-width:1.5;
-
-    stroke-linecap:round;
-
-    stroke-dasharray:15 15;
+    height: 180px;
 
 }
 
 
+.orbit-2 {
 
-.agent{
+    width: 300px;
 
-    position:absolute;
-
-    width:220px;
-
-    height:220px;
-
-    border-radius:50%;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    text-align:center;
-
-    backdrop-filter:blur(20px);
-
-    border:1px solid rgba(255,255,255,.15);
-
-    background:
-    rgba(255,255,255,.03);
-
-    transition:.4s ease;
-
-    cursor:pointer;
-
-}
-
-.agent:hover{
-
-    transform:translateY(-12px) scale(1.05);
-
-    box-shadow:
-    0 0 40px rgba(76,201,255,.25);
-
-}
-
-.agent span{
-
-    width:120px;
-
-    line-height:1.4;
+    height: 300px;
 
 }
 
 
-.core{
+.orbit-3 {
 
-    top:290px;
-    left:490px;
+    width: 420px;
 
-    width:240px;
-    height:240px;
-
-    background:
-    radial-gradient(
-        circle,
-        rgba(76,201,255,.3),
-        rgba(76,201,255,.05)
-    );
-
-    box-shadow:
-    0 0 50px rgba(76,201,255,.4);
-
-}
-
-.discovery{
-
-    left:60px;
-    top:90px;
-
-}
-
-.marketing{
-
-    right:60px;
-    top:90px;
-
-}
-
-.store{
-
-    left:60px;
-    bottom:40px;
-
-}
-
-.support{
-
-    right:60px;
-    bottom:40px;
-
-}
-
-.analytics{
-
-    top:0;
-    left:50%;
-    transform:translateX(-50%);
-
-}
-
-.visual{
-
-    bottom:0;
-    left:50%;
-    transform:translateX(-50%);
+    height: 420px;
 
 }
 
 
+/* =========================================================
+   07. AI AGENT NETWORK
+   ========================================================= */
 
+.agent-network {
 
-.agent-info{
+    position: relative;
 
-    max-width:800px;
+    min-height: 140vh;
 
-    margin:100px auto 0;
+    background: #050505;
 
-    text-align:center;
+    padding: 180px 0;
 
-}
-
-.agent-info h3{
-
-    font-size:3rem;
-
-    font-weight:300;
-
-    margin-bottom:20px;
-
-}
-
-.agent-info p{
-
-    color:#9ea3b0;
-
-    font-size:1.2rem;
-
-    line-height:1.8;
+    overflow: hidden;
 
 }
 
 
+/* =========================================================
+   08. AGENT HEADER
+   ========================================================= */
 
+.agent-header {
 
-.core-glow{
+    position: relative;
 
-    position:absolute;
+    z-index: 10;
 
-    inset:-60px;
+    text-align: center;
 
-    border-radius:50%;
+    max-width: 900px;
 
-    background:
-    radial-gradient(
-      circle,
-      rgba(76,201,255,.25),
-      transparent 70%
-    );
+    margin: 0 auto 120px;
+
+    padding: 0 20px;
 
 }
 
 
+.section-label {
+
+    display: inline-block;
+
+    color: var(--accent);
+
+    letter-spacing: 4px;
+
+    font-size: 0.9rem;
+
+    margin-bottom: 20px;
+
+}
 
 
-.tech-grid{
+.agent-header h2 {
 
-    position:absolute;
+    font-size: clamp(3rem, 6vw, 7rem);
 
-    inset:0;
+    font-weight: 300;
+
+    margin-bottom: 30px;
+
+    line-height: 0.95;
+
+}
+
+
+.agent-header p {
+
+    max-width: 700px;
+
+    margin: auto;
+
+    color: var(--muted);
+
+    font-size: 1.2rem;
+
+    line-height: 1.8;
+
+}
+
+
+/* =========================================================
+   09. TECHNOLOGY GRID
+   ========================================================= */
+
+.tech-grid {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 1;
 
     background:
 
-    linear-gradient(
-        rgba(255,255,255,.03) 1px,
-        transparent 1px
-    ),
+        linear-gradient(
+            rgba(255, 255, 255, 0.03) 1px,
+            transparent 1px
+        ),
 
-    linear-gradient(
-        90deg,
-        rgba(255,255,255,.03) 1px,
-        transparent 1px
-    );
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.03) 1px,
+            transparent 1px
+        );
 
-    background-size:80px 80px;
+    background-size: 80px 80px;
 
-    pointer-events:none;
-
-}
-
-
-.particle{
-
-    position:absolute;
-
-    width:3px;
-
-    height:3px;
-
-    border-radius:50%;
-
-    background:white;
+    pointer-events: none;
 
 }
 
 
-.agent{
+/* =========================================================
+   10. CONSTELLATION WRAPPER
+   ========================================================= */
 
-    backdrop-filter:blur(30px);
+.network-wrapper {
+
+    position: relative;
+
+    width: 1200px;
+
+    max-width: 95%;
+
+    height: 800px;
+
+    margin: auto;
+
+    overflow: hidden;
+
+}
+
+
+/* =========================================================
+   11. SVG NETWORK
+   ========================================================= */
+
+.network-lines {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    z-index: 2;
+
+    overflow: visible;
+
+    pointer-events: none;
+
+}
+
+
+.network-lines line {
+
+    stroke: rgba(255, 255, 255, 0.15);
+
+    stroke-width: 1.5;
+
+    stroke-linecap: round;
+
+    stroke-dasharray: 15 15;
+
+    fill: none;
+
+}
+
+
+/* =========================================================
+   12. PARTICLE FIELD
+   ========================================================= */
+
+.particle-field {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 3;
+
+    pointer-events: none;
+
+}
+
+
+.particle {
+
+    position: absolute;
+
+    width: 3px;
+
+    height: 3px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   13. AGENT NODES
+   ========================================================= */
+
+.agent {
+
+    position: absolute;
+
+    width: 220px;
+
+    height: 220px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    backdrop-filter: blur(30px);
+
+    -webkit-backdrop-filter: blur(30px);
 
     background:
-    linear-gradient(
-        135deg,
-        rgba(255,255,255,.08),
-        rgba(255,255,255,.02)
-    );
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.08),
+            rgba(255, 255, 255, 0.02)
+        );
 
     border:
-    1px solid rgba(255,255,255,.15);
+        1px solid rgba(255, 255, 255, 0.15);
 
     box-shadow:
 
-    inset 0 1px 0 rgba(255,255,255,.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
 
-    0 15px 60px rgba(0,0,0,.35);
+        0 15px 60px rgba(0, 0, 0, 0.35);
+
+    cursor: pointer;
+
+    z-index: 5;
+
+    will-change: transform;
+
+}
+
+
+/*
+   IMPORTANT:
+   Do not use transform on :hover here.
+   GSAP controls transform values.
+*/
+
+.agent:hover {
+
+    box-shadow:
+
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+
+        0 0 40px rgba(76, 201, 255, 0.25),
+
+        0 20px 70px rgba(0, 0, 0, 0.4);
+
+}
+
+
+.agent span {
+
+    width: 120px;
+
+    line-height: 1.4;
+
+    font-size: 0.95rem;
+
+}
+
+
+/* =========================================================
+   14. AGENT POSITIONS
+   ========================================================= */
+
+.core {
+
+    top: 280px;
+
+    left: 480px;
+
+    width: 240px;
+
+    height: 240px;
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(76, 201, 255, 0.3),
+            rgba(76, 201, 255, 0.05)
+        );
+
+    box-shadow:
+
+        0 0 50px rgba(76, 201, 255, 0.4),
+
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+}
+
+
+.discovery {
+
+    left: 60px;
+
+    top: 90px;
+
+}
+
+
+.marketing {
+
+    right: 60px;
+
+    top: 90px;
+
+}
+
+
+.store {
+
+    left: 60px;
+
+    bottom: 40px;
+
+}
+
+
+.support {
+
+    right: 60px;
+
+    bottom: 40px;
+
+}
+
+
+.analytics {
+
+    top: 0;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+}
+
+
+.visual {
+
+    bottom: 0;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+}
+
+
+/* =========================================================
+   15. AI CORE GLOW
+   ========================================================= */
+
+.core-glow {
+
+    position: absolute;
+
+    inset: -60px;
+
+    border-radius: 50%;
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(76, 201, 255, 0.25),
+            transparent 70%
+        );
+
+    pointer-events: none;
+
+    z-index: -1;
+
+}
+
+
+/* =========================================================
+   16. AGENT INFORMATION PANEL
+   ========================================================= */
+
+.agent-info {
+
+    position: relative;
+
+    z-index: 10;
+
+    max-width: 800px;
+
+    margin: 100px auto 0;
+
+    padding: 0 20px;
+
+    text-align: center;
+
+}
+
+
+.agent-info h3 {
+
+    font-size: 3rem;
+
+    font-weight: 300;
+
+    margin-bottom: 20px;
+
+}
+
+
+.agent-info p {
+
+    color: var(--muted);
+
+    font-size: 1.2rem;
+
+    line-height: 1.8;
+
+}
+
+
+/* =========================================================
+   17. STORE PLACEHOLDER
+   ========================================================= */
+
+.store {
+
+    position: relative;
+
+    min-height: 100vh;
+
+    background: #050505;
+
+}
+
+
+/* =========================================================
+   18. CONTACT PLACEHOLDER
+   ========================================================= */
+
+.contact {
+
+    position: relative;
+
+    min-height: 100vh;
+
+    background: #050505;
+
+}
+
+
+/* =========================================================
+   19. ACCESSIBILITY
+   ========================================================= */
+
+a:focus-visible {
+
+    outline: 2px solid var(--accent);
+
+    outline-offset: 5px;
+
+}
+
+
+/* =========================================================
+   20. REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+
+        scroll-behavior: auto;
+
+    }
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration: 0.01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+
+        scroll-behavior: auto !important;
+
+    }
 
 }
