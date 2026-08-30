@@ -26,6 +26,49 @@ window.addEventListener(
 
 const stars = [];
 
+
+for(let i=0;i<stars.length;i++){
+
+    for(let j=i+1;j<stars.length;j++){
+
+        const dx =
+        stars[i].x-stars[j].x;
+
+        const dy =
+        stars[i].y-stars[j].y;
+
+        const dist =
+        Math.sqrt(dx*dx+dy*dy);
+
+        if(dist < 120){
+
+            ctx.beginPath();
+
+            ctx.moveTo(
+                stars[i].x,
+                stars[i].y
+            );
+
+            ctx.lineTo(
+                stars[j].x,
+                stars[j].y
+            );
+
+            ctx.strokeStyle =
+            `rgba(76,201,255,${
+                1-dist/120
+            })`;
+
+            ctx.stroke();
+
+        }
+
+    }
+
+}
+
+
+
 for(let i=0;i<250;i++){
 
     stars.push({
