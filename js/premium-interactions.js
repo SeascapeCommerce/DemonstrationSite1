@@ -44,3 +44,44 @@ window.addEventListener("mousemove",(e)=>{
     });
 
 });
+
+
+
+document.querySelectorAll(
+".cta,.industry-item,.terminal-submit"
+).forEach(button=>{
+
+    button.addEventListener("mousemove",(e)=>{
+
+        const rect =
+        button.getBoundingClientRect();
+
+        const x =
+        e.clientX -
+        rect.left -
+        rect.width/2;
+
+        const y =
+        e.clientY -
+        rect.top -
+        rect.height/2;
+
+        gsap.to(button,{
+            x:x*.15,
+            y:y*.15,
+            duration:.4
+        });
+
+    });
+
+    button.addEventListener("mouseleave",()=>{
+
+        gsap.to(button,{
+            x:0,
+            y:0,
+            duration:.5
+        });
+
+    });
+
+});
