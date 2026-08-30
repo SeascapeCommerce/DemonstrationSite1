@@ -6396,3 +6396,48 @@ html.lenis body {
     }
 
 }
+
+
+
+/* ==========================================
+   GLOBAL CINEMATIC LAYER
+========================================== */
+
+section{
+    position:relative;
+    overflow:hidden;
+}
+
+.headline .char{
+    display:inline-block;
+    will-change:transform;
+}
+
+.subhead .word{
+    display:inline-block;
+}
+
+.hero-video{
+    transform:scale(1.1);
+}
+
+.navbar{
+    transition:background .4s ease;
+}
+
+.navbar.scrolled{
+    backdrop-filter:blur(24px);
+    background:rgba(5,5,5,.7);
+}
+
+img{
+    will-change:transform;
+}
+
+.section-label{
+    display:inline-block;
+}
+
+.core-glow{
+    will-change:transform;
+}
