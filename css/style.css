@@ -1280,1088 +1280,541 @@ section {
 
 
 /* =========================================================
-   15 — PARTICLES
+   AI AGENT CONSTELLATION
+   Spatial Node System
    ========================================================= */
 
-.particle-field {
+.agent{
 
-    position: absolute;
+    position:absolute;
 
-    inset: 0;
+    width:220px;
+    height:220px;
 
-    z-index: 0;
+    border-radius:50%;
 
-    overflow: hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-}
+    text-align:center;
 
+    cursor:pointer;
 
-.particle {
+    z-index:5;
 
-    position: absolute;
+    /*
+       Base positioning remains independent
+       from animation.
+    */
 
-    width: 2px;
-
-    height: 2px;
-
-    border-radius: 50%;
-
-    background: rgba(255,255,255,.75);
-
-    box-shadow:
-        0 0 8px rgba(91,215,255,.35);
-
-    pointer-events: none;
-
-}
-
-
-/* =========================================================
-   16 — NETWORK LINES
-   ========================================================= */
-
-.network-lines {
-
-    position: absolute;
-
-    inset: 0;
-
-    z-index: 1;
-
-    width: 100%;
-    height: 100%;
-
-    overflow: visible;
-
-}
-
-
-.network-lines line {
-
-    stroke:
-        rgba(255,255,255,.12);
-
-    stroke-width: 1;
-
-    stroke-linecap: round;
-
-    stroke-dasharray:
-        8 18;
-
-    vector-effect:
-        non-scaling-stroke;
-
-}
-
-
-.network-lines .beam {
-
-    filter:
-        drop-shadow(
-            0 0 5px
-            rgba(91,215,255,.15)
-        );
-
-}
-
-
-/* =========================================================
-   17 — AGENT NODES
-   ========================================================= */
-
-.agent {
-
-    position: absolute;
-
-    z-index: 3;
-
-    width:
-        clamp(
-            130px,
-            15vw,
-            220px
-        );
-
-    aspect-ratio: 1;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    text-align: center;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle at 35% 30%,
-            rgba(255,255,255,.08),
-            rgba(255,255,255,.015) 60%,
-            transparent 75%
+    transform:
+        translate3d(
+            var(--base-x, 0px),
+            var(--base-y, 0px),
+            0
+        )
+        translate3d(
+            var(--motion-x, 0px),
+            var(--motion-y, 0px),
+            0
+        )
+        translate3d(
+            var(--mouse-x, 0px),
+            var(--mouse-y, 0px),
+            0
+        )
+        translate3d(
+            var(--core-x, 0px),
+            var(--core-y, 0px),
+            0
+        )
+        scale(
+            var(--depth-scale, 1)
         );
 
     border:
-        1px solid rgba(255,255,255,.12);
+        1px solid
+        rgba(255,255,255,.14);
 
-    box-shadow:
-        0 20px 80px rgba(0,0,0,.45);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.08),
+            rgba(255,255,255,.015)
+        );
 
     backdrop-filter:
-        blur(12px);
+        blur(24px);
 
-    cursor: pointer;
+    -webkit-backdrop-filter:
+        blur(24px);
+
+    box-shadow:
+        inset 0 1px 0
+        rgba(255,255,255,.12),
+
+        0 20px 70px
+        rgba(0,0,0,.4);
 
     transition:
         border-color .5s ease,
         box-shadow .5s ease;
-   transform:
-        translateX(var(--base-x, 0))
-        translateY(var(--base-y, 0))
-        translateX(var(--mouse-x, 0px))
-        translateY(var(--mouse-y, 0px))
-        translateX(var(--float-x, 0px))
-        translateY(var(--float-y, 0px));
+
+    will-change:
+        transform;
 
 }
 
 
-.agent::before {
+/* ---------------------------------------------------------
+   AGENT LABEL
+   --------------------------------------------------------- */
 
-    content: "";
+.agent span{
 
-    position: absolute;
+    position:relative;
 
-    inset: 8px;
+    width:130px;
 
-    border-radius: 50%;
+    font-size:.95rem;
 
-    border:
-        1px solid rgba(255,255,255,.035);
+    line-height:1.35;
 
-    pointer-events: none;
+    letter-spacing:.02em;
 
-}
+    color:
+        rgba(255,255,255,.9);
 
-
-.agent:hover {
-
-    border-color:
-        rgba(91,215,255,.55);
-
-    box-shadow:
-        0 0 50px
-        rgba(91,215,255,.15);
+    z-index:2;
 
 }
 
 
-.agent span {
+/* ---------------------------------------------------------
+   CORE
+   --------------------------------------------------------- */
 
-    position: relative;
+.agent.core{
 
-    z-index: 2;
+    width:240px;
+    height:240px;
 
-    width: 75%;
-
-    font-family: var(--font-mono);
-
-    font-size: .65rem;
-
-    line-height: 1.5;
-
-    letter-spacing: .08em;
-
-    text-transform: uppercase;
-
-}
-
-
-/* =========================================================
-   18 — CORE NODE
-   ========================================================= */
-
-.agent.core {
-
-    width:
-        clamp(
-            170px,
-            20vw,
-            240px
-        );
+    z-index:10;
 
     background:
+        radial-gradient(
+            circle at center,
+            rgba(76,201,255,.24),
+            rgba(76,201,255,.07) 42%,
+            rgba(0,0,0,.05) 72%
+        );
 
+    border-color:
+        rgba(76,201,255,.38);
+
+    box-shadow:
+
+        0 0 50px
+        rgba(76,201,255,.25),
+
+        0 0 120px
+        rgba(76,201,255,.12),
+
+        inset 0 0 40px
+        rgba(76,201,255,.08);
+
+}
+
+
+/* ---------------------------------------------------------
+   CORE GLOW
+   --------------------------------------------------------- */
+
+.core-glow{
+
+    position:absolute;
+
+    inset:-70px;
+
+    border-radius:50%;
+
+    background:
         radial-gradient(
             circle,
-            rgba(91,215,255,.18),
-            rgba(91,215,255,.04) 45%,
-            transparent 70%
+            rgba(76,201,255,.28),
+            transparent 68%
         );
+
+    opacity:.6;
+
+    pointer-events:none;
+
+    z-index:-1;
+
+}
+
+
+/* ---------------------------------------------------------
+   ACTIVE AGENT
+   --------------------------------------------------------- */
+
+.agent.is-active{
 
     border-color:
-        rgba(91,215,255,.35);
+        rgba(76,201,255,.65);
 
     box-shadow:
-        0 0 70px
-        rgba(91,215,255,.18);
+
+        0 0 45px
+        rgba(76,201,255,.2),
+
+        0 20px 80px
+        rgba(0,0,0,.5),
+
+        inset 0 0 30px
+        rgba(76,201,255,.06);
 
 }
 
 
-.agent.core span {
+/* ---------------------------------------------------------
+   AGENT POSITIONS
+   --------------------------------------------------------- */
 
-    font-size: .75rem;
+.discovery{
 
-    color: var(--blue-soft);
-
-}
-
-
-/* =========================================================
-   19 — AGENT POSITIONS
-   ========================================================= */
-
-.discovery {
-
-    left: 5%;
-
-    top: 18%;
+    left:60px;
+    top:90px;
 
 }
 
 
-.marketing {
+.marketing{
 
-    right: 5%;
-
-    top: 18%;
-
-}
-
-
-.store {
-
-    left: 5%;
-
-    bottom: 12%;
+    right:60px;
+    top:90px;
 
 }
 
 
-.support {
+.store{
 
-    right: 5%;
-
-    bottom: 12%;
-
-}
-
-
-.analytics {
-
-    top: 0;
-
-    left: 50%;
-
-    transform:
-        translateX(-50%);
+    left:60px;
+    bottom:40px;
 
 }
 
 
-.visual {
+.support{
 
-    bottom: 0;
-
-    left: 50%;
-
-    transform:
-        translateX(-50%);
+    right:60px;
+    bottom:40px;
 
 }
 
 
-/* =========================================================
-   20 — AGENT INFORMATION
-   ========================================================= */
+.analytics{
 
-.agent-info {
+    top:0;
+    left:50%;
 
-    position: relative;
+    --base-x:-50%;
 
-    z-index: 5;
+}
 
-    width:
-        min(
-            800px,
-            calc(100% - 2 * var(--page-padding))
+
+.visual{
+
+    bottom:0;
+    left:50%;
+
+    --base-x:-50%;
+
+}
+
+
+/* ---------------------------------------------------------
+   NETWORK SVG
+   --------------------------------------------------------- */
+
+.network-lines{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    overflow:visible;
+
+    z-index:2;
+
+    pointer-events:none;
+
+}
+
+
+.network-lines .beam{
+
+    fill:none;
+
+    stroke:
+        rgba(255,255,255,.15);
+
+    stroke-width:1.5;
+
+    stroke-linecap:round;
+
+    vector-effect:
+        non-scaling-stroke;
+
+    filter:
+        drop-shadow(
+            0 0 4px
+            rgba(76,201,255,.08)
         );
 
-    margin:
-        4vh
-        auto
-        0;
+}
 
-    padding-top: 28px;
 
-    border-top:
-        1px solid rgba(255,255,255,.10);
+/* ---------------------------------------------------------
+   PARTICLES
+   --------------------------------------------------------- */
 
-    text-align: left;
+.particle-field{
+
+    position:absolute;
+
+    inset:0;
+
+    overflow:hidden;
+
+    pointer-events:none;
+
+    z-index:1;
 
 }
 
 
-.agent-info::before {
+.particle{
 
-    content: "ACTIVE SYSTEM";
+    position:absolute;
 
-    display: block;
+    width:3px;
+    height:3px;
 
-    margin-bottom: 18px;
-
-    font-family: var(--font-mono);
-
-    font-size: .6rem;
-
-    letter-spacing: .16em;
-
-    color: var(--blue);
-
-}
-
-
-.agent-info h3 {
-
-    margin: 0 0 15px;
-
-    font-family: var(--font-display);
-
-    font-size:
-        clamp(
-            2rem,
-            4vw,
-            4rem
-        );
-
-    font-weight: 300;
-
-    line-height: .9;
-
-    letter-spacing: -.04em;
-
-    text-transform: uppercase;
-
-}
-
-
-.agent-info p {
-
-    max-width: 650px;
-
-    margin: 0;
-
-    color: var(--muted);
-
-    font-size: 1rem;
-
-    line-height: 1.8;
-
-}
-
-
-/* =========================================================
-   21 — FUTURE EDITORIAL SECTIONS
-   ========================================================= */
-
-.store,
-.contact {
-
-    position: relative;
-
-    min-height: 100vh;
-
-    background: var(--black);
-
-}
-
-
-/* Industry / commerce sections that we will build later */
-
-.industry-showcase,
-.commerce-showcase,
-.launch-section {
-
-    position: relative;
-
-    min-height: var(--viewport-height);
-
-    overflow: hidden;
-
-}
-
-
-.section-number {
-
-    font-family: var(--font-display);
-
-    font-size:
-        clamp(
-            8rem,
-            20vw,
-            22rem
-        );
-
-    font-weight: 100;
-
-    line-height: .7;
-
-    letter-spacing: -.08em;
-
-    color: rgba(255,255,255,.04);
-
-}
-
-
-/* =========================================================
-   22 — FULL-BLEED MEDIA SYSTEM
-   ========================================================= */
-
-.media-frame {
-
-    position: relative;
-
-    width: 100%;
-
-    overflow: hidden;
-
-}
-
-
-.media-frame img,
-.media-frame video {
-
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-
-    transform:
-        scale(1.04);
-
-}
-
-
-.media-frame::after {
-
-    content: "";
-
-    position: absolute;
-
-    inset: 0;
-
-    pointer-events: none;
+    border-radius:50%;
 
     background:
+        rgba(255,255,255,.8);
+
+    box-shadow:
+        0 0 8px
+        rgba(76,201,255,.4);
+
+    pointer-events:none;
+
+}
+
+
+/* ---------------------------------------------------------
+   TECH GRID
+   --------------------------------------------------------- */
+
+.tech-grid{
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    opacity:.45;
+
+    background-image:
+
         linear-gradient(
-            180deg,
-            transparent 50%,
-            rgba(0,0,0,.45)
+            rgba(255,255,255,.035) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.035) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        80px 80px;
+
+    mask-image:
+        radial-gradient(
+            ellipse at center,
+            black 20%,
+            transparent 80%
+        );
+
+    -webkit-mask-image:
+        radial-gradient(
+            ellipse at center,
+            black 20%,
+            transparent 80%
         );
 
 }
 
 
-/* =========================================================
-   23 — EDITORIAL DISPLAY TEXT
-   ========================================================= */
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
 
-.editorial-title {
+@media (max-width: 900px){
 
-    margin: 0;
+    .network-wrapper{
 
-    font-family: var(--font-display);
+        height:650px;
 
-    font-size:
-        clamp(
-            5rem,
-            13vw,
-            15rem
-        );
+    }
 
-    font-weight: 300;
 
-    line-height: .72;
+    .agent{
 
-    letter-spacing: -.075em;
+        width:170px;
+        height:170px;
 
-    text-transform: uppercase;
+    }
+
+
+    .agent.core{
+
+        width:190px;
+        height:190px;
+
+    }
+
+
+    .discovery{
+        left:20px;
+        top:70px;
+    }
+
+
+    .marketing{
+        right:20px;
+        top:70px;
+    }
+
+
+    .store{
+        left:20px;
+        bottom:40px;
+    }
+
+
+    .support{
+        right:20px;
+        bottom:40px;
+    }
 
 }
 
 
-.editorial-line {
+@media (max-width:600px){
 
-    overflow: hidden;
+    .network-wrapper{
 
-}
-
-
-.editorial-line span {
-
-    display: block;
-
-    transform:
-        translateY(110%);
-
-}
-
-
-/* =========================================================
-   24 — HORIZONTAL TRACK FOUNDATION
-   ========================================================= */
-
-.horizontal-section {
-
-    position: relative;
-
-    overflow: hidden;
-
-}
-
-
-.horizontal-track {
-
-    display: flex;
-
-    width: max-content;
-
-    gap: 3vw;
-
-}
-
-
-/* =========================================================
-   25 — CURSOR INTERACTION FOUNDATION
-   ========================================================= */
-
-[data-cursor] {
-
-    cursor: none;
-
-}
-
-
-.cursor {
-
-    position: fixed;
-
-    top: 0;
-    left: 0;
-
-    z-index: 10000;
-
-    width: 12px;
-    height: 12px;
-
-    border-radius: 50%;
-
-    background: var(--white);
-
-    pointer-events: none;
-
-    mix-blend-mode: difference;
-
-    transform:
-        translate(-50%,-50%);
-
-    opacity: 0;
-
-}
-
-
-.cursor.is-visible {
-
-    opacity: 1;
-
-}
-
-
-/* =========================================================
-   26 — DIVIDERS
-   ========================================================= */
-
-.editorial-divider {
-
-    width: 100%;
-
-    height: 1px;
-
-    background:
-        rgba(255,255,255,.10);
-
-}
-
-
-.editorial-divider::after {
-
-    content: "";
-
-    display: block;
-
-    width: 20%;
-
-    height: 1px;
-
-    background: var(--blue);
-
-}
-
-
-/* =========================================================
-   27 — RESPONSIVE TABLET
-   ========================================================= */
-
-@media (max-width: 900px) {
-
-    :root {
-
-        --page-padding: 28px;
+        height:600px;
 
     }
 
 
-    .nav-links {
+    .agent{
 
-        gap: 18px;
+        width:125px;
+        height:125px;
 
-    }
-
-
-    .mission-container {
-
-        grid-template-columns: 1fr;
-
-        padding-top: 100px;
-
-        padding-bottom: 80px;
+        backdrop-filter:
+            blur(14px);
 
     }
 
 
-    .mission-right {
+    .agent.core{
 
-        min-height: 380px;
-
-    }
-
-
-    .mission-circle {
-
-        width:
-            min(
-                65vw,
-                500px
-            );
+        width:150px;
+        height:150px;
 
     }
 
 
-    .network-wrapper {
+    .agent span{
 
-        height: 650px;
+        width:90px;
 
-    }
-
-
-    .agent {
-
-        width: 150px;
+        font-size:.72rem;
 
     }
 
 
-    .agent.core {
-
-        width: 190px;
-
+    .discovery{
+        left:5px;
+        top:70px;
     }
 
 
-    .discovery {
-
-        left: 0;
-
+    .marketing{
+        right:5px;
+        top:70px;
     }
 
 
-    .marketing {
-
-        right: 0;
-
+    .store{
+        left:5px;
+        bottom:40px;
     }
 
 
-    .store {
-
-        left: 0;
-
+    .support{
+        right:5px;
+        bottom:40px;
     }
 
 
-    .support {
+    .analytics{
+        top:5px;
+    }
 
-        right: 0;
+
+    .visual{
+        bottom:5px;
+    }
+
+
+    .network-lines{
+
+        opacity:.7;
 
     }
 
 }
 
 
-/* =========================================================
-   28 — RESPONSIVE MOBILE
-   ========================================================= */
+/* ---------------------------------------------------------
+   REDUCED MOTION
+   --------------------------------------------------------- */
 
-@media (max-width: 640px) {
+@media (prefers-reduced-motion: reduce){
 
-    :root {
+    .agent,
+    .particle,
+    .network-lines,
+    .tech-grid{
 
-        --page-padding: 20px;
+        animation:none !important;
 
-    }
-
-
-    .navbar {
-
-        padding:
-            20px
-            var(--page-padding);
-
-    }
-
-
-    .nav-links {
-
-        display: none;
-
-    }
-
-
-    .hero {
-
-        min-height: 650px;
-
-    }
-
-
-    .hero-content {
-
-        padding-bottom: 70px;
-
-    }
-
-
-    .headline {
-
-        font-size:
-            clamp(
-                4rem,
-                20vw,
-                7rem
-            );
-
-        line-height: .8;
-
-    }
-
-
-    .subhead {
-
-        margin-top: 30px;
-
-    }
-
-
-    .mission-control {
-
-        height: 500vh;
-
-    }
-
-
-    .mission-container {
-
-        min-height: 700px;
-
-        display: flex;
-
-        flex-direction: column;
-
-        justify-content: center;
-
-        align-items: flex-start;
-
-        gap: 50px;
-
-    }
-
-
-    .mission-left {
-
-        width: 100%;
-
-    }
-
-
-    .mission-left::before {
-
-        margin-bottom: 25px;
-
-    }
-
-
-    .mission-stage h2 {
-
-        font-size:
-            clamp(
-                4rem,
-                18vw,
-                6rem
-            );
-
-    }
-
-
-    .mission-right {
-
-        width: 100%;
-
-        min-height: 300px;
-
-    }
-
-
-    .mission-circle {
-
-        width:
-            min(
-                80vw,
-                340px
-            );
-
-    }
-
-
-    .agent-network {
-
-        min-height: 1250px;
-
-        padding-top: 120px;
-
-    }
-
-
-    .agent-header {
-
-        margin-bottom: 70px;
-
-    }
-
-
-    .agent-header h2 {
-
-        font-size:
-            clamp(
-                3.8rem,
-                17vw,
-                6rem
-            );
-
-    }
-
-
-    .agent-header p {
-
-        margin-top: 30px;
-
-    }
-
-
-    .network-wrapper {
-
-        width: 100%;
-
-        height: 650px;
-
-        min-height: 650px;
-
-    }
-
-
-    .agent {
-
-        width: 105px;
-
-    }
-
-
-    .agent.core {
-
-        width: 145px;
-
-    }
-
-
-    .agent span {
-
-        font-size: .48rem;
-
-        letter-spacing: .06em;
-
-    }
-
-
-    .core span {
-
-        font-size: .55rem;
-
-    }
-
-
-    .discovery {
-
-        left: 2%;
-
-        top: 18%;
-
-    }
-
-
-    .marketing {
-
-        right: 2%;
-
-        top: 18%;
-
-    }
-
-
-    .store {
-
-        left: 2%;
-
-        bottom: 15%;
-
-    }
-
-
-    .support {
-
-        right: 2%;
-
-        bottom: 15%;
-
-    }
-
-
-    .analytics {
-
-        top: 2%;
-
-    }
-
-
-    .visual {
-
-        bottom: 2%;
-
-    }
-
-
-    .network-lines {
-
-        opacity: .7;
-
-    }
-
-
-    .agent-info {
-
-        margin-top: 40px;
-
-    }
-
-
-    .agent-info h3 {
-
-        font-size: 2.5rem;
-
-    }
-
-
-}
-
-
-/* =========================================================
-   29 — REDUCED MOTION
-   ========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-    html {
-
-        scroll-behavior: auto;
-
-    }
-
-
-    *,
-    *::before,
-    *::after {
-
-        animation-duration: .01ms !important;
-
-        animation-iteration-count: 1 !important;
-
-        transition-duration: .01ms !important;
-
-        scroll-behavior: auto !important;
-
-    }
-
-
-    .hero video {
-
-        transform: none;
-
-    }
-
-}
-
-
-/* =========================================================
-   30 — PRINT
-   ========================================================= */
-
-@media print {
-
-    body {
-
-        background: white;
-
-        color: black;
-
-    }
-
-
-    .navbar,
-    .hero video,
-    .tech-grid,
-    .particle-field {
-
-        display: none;
+        transition:none !important;
 
     }
 
