@@ -85,3 +85,6 @@ document.querySelectorAll(
     });
 
 });
+
+
+gsap.to(".core::after");
