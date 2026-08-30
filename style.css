@@ -521,3 +521,35 @@ background:rgba(255,255,255,.08);
 
 }
 
+
+
+
+.agent-info{
+
+    max-width:800px;
+
+    margin:100px auto 0;
+
+    text-align:center;
+
+}
+
+.agent-info h3{
+
+    font-size:3rem;
+
+    font-weight:300;
+
+    margin-bottom:20px;
+
+}
+
+.agent-info p{
+
+    color:#9ea3b0;
+
+    font-size:1.2rem;
+
+    line-height:1.8;
+
+}
