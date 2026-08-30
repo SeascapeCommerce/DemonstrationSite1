@@ -3,370 +3,828 @@
 
 <head>
 
+    <!-- =====================================================
+         DOCUMENT META
+         ===================================================== -->
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Seascape Commerce</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="stylesheet" href="css/style.css">
+    <meta
+        name="description"
+        content="Seascape Commerce — AI-powered ecommerce experiences engineered for ambitious brands."
+    >
 
-    <link rel="stylesheet"
-          href="https://unpkg.com/lenis@1.3.26/dist/lenis.css">
+    <meta
+        name="theme-color"
+        content="#050505"
+    >
 
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <title>
+        Seascape Commerce — Commerce Beyond Orbit
+    </title>
 
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
 
-    <script src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js"></script>
+    <!-- =====================================================
+         STYLES
+         ===================================================== -->
 
-    <script src="https://unpkg.com/split-type"></script>
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+
+    <!-- =====================================================
+         GOOGLE / EXTERNAL FONTS
+         Optional — can be replaced with local fonts later.
+         ===================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         GSAP
+         ===================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"
+        defer
+    ></script>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"
+        defer
+    ></script>
+
+
+    <!-- =====================================================
+         LENIS
+         ===================================================== -->
+
+    <script
+        src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js"
+        defer
+    ></script>
+
+
+    <!-- =====================================================
+         SPLIT TYPE
+         Used later for advanced typography animation.
+         ===================================================== -->
+
+    <script
+        src="https://unpkg.com/split-type"
+        defer
+    ></script>
 
 </head>
 
+
 <body>
 
-    <!-- ========================= -->
-    <!-- NAVIGATION -->
-    <!-- ========================= -->
 
-    <nav class="navbar">
+    <!-- =====================================================
+         NAVIGATION
+         ===================================================== -->
 
-        <div class="logo">
+    <nav
+        class="navbar"
+        aria-label="Main navigation"
+    >
+
+        <a
+            href="#top"
+            class="logo"
+            aria-label="Seascape Commerce home"
+        >
             SEASCAPE
-        </div>
+        </a>
+
 
         <div class="nav-links">
 
-            <a href="#mission-control">Mission</a>
+            <a href="#mission-control">
+                Mission
+            </a>
 
-            <a href="#agents">Agents</a>
+            <a href="#agents">
+                Agents
+            </a>
 
-            <a href="#store">Store</a>
+            <a href="#store">
+                Store
+            </a>
 
-            <a href="#contact">Contact</a>
+            <a href="#contact">
+                Contact
+            </a>
 
         </div>
 
     </nav>
 
-    <!-- ========================= -->
-    <!-- HERO -->
-    <!-- ========================= -->
 
-    <section class="hero">
+    <!-- =====================================================
+         PAGE WRAPPER
+         ===================================================== -->
 
-        <video autoplay muted loop playsinline>
+    <main id="top">
 
-            <source src="assets/videos/hero.mp4" type="video/mp4">
 
-        </video>
+        <!-- =================================================
+             HERO
+             ================================================= -->
 
-        <div class="hero-overlay"></div>
+        <section
+            class="hero"
+            aria-labelledby="hero-title"
+        >
 
-        <div class="hero-content">
+            <!-- Background video -->
 
-            <p class="eyebrow">
-                AI COMMERCE SYSTEMS
-            </p>
+            <video
+                class="hero-video"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                aria-hidden="true"
+            >
 
-            <h1 class="headline">
-                Commerce Beyond Orbit
-            </h1>
+                <source
+                    src="assets/videos/hero.mp4"
+                    type="video/mp4"
+                >
 
-            <p class="subhead">
-                AI-powered ecommerce experiences engineered
-                for ambitious brands.
-            </p>
+            </video>
 
-            <a href="#contact" class="cta">
-                Launch Project
-            </a>
 
-        </div>
+            <!-- Video darkness / contrast layer -->
 
-    </section>
+            <div
+                class="hero-overlay"
+                aria-hidden="true"
+            ></div>
 
-    <!-- ========================= -->
-    <!-- STARFIELD -->
-    <!-- ========================= -->
 
-    <section class="stars">
+            <!-- Hero content -->
 
-        <div class="starfield"></div>
+            <div class="hero-content">
 
-    </section>
+                <p class="eyebrow">
+                    AI COMMERCE SYSTEMS
+                </p>
 
-    <!-- ========================= -->
-    <!-- MISSION CONTROL -->
-    <!-- ========================= -->
 
-    <section id="mission-control" class="mission-control">
+                <h1
+                    id="hero-title"
+                    class="headline"
+                >
+                    Commerce Beyond Orbit
+                </h1>
 
-        <div class="mission-container">
 
-            <div class="mission-left">
+                <p class="subhead">
+                    AI-powered ecommerce experiences engineered
+                    for ambitious brands.
+                </p>
 
-                <div class="mission-stage active">
 
-                    <span class="mission-number">01</span>
-
-                    <h2>Discover</h2>
-
-                    <p>
-                        We analyze your business,
-                        industry, competitors,
-                        and growth opportunities.
-                    </p>
-
-                </div>
-
-                <div class="mission-stage">
-
-                    <span class="mission-number">02</span>
-
-                    <h2>Design</h2>
-
-                    <p>
-                        We architect premium commerce
-                        experiences designed for trust,
-                        engagement, and conversion.
-                    </p>
-
-                </div>
-
-                <div class="mission-stage">
-
-                    <span class="mission-number">03</span>
-
-                    <h2>Build</h2>
-
-                    <p>
-                        Custom storefronts,
-                        automations, integrations,
-                        and AI systems.
-                    </p>
-
-                </div>
-
-                <div class="mission-stage">
-
-                    <span class="mission-number">04</span>
-
-                    <h2>Deploy</h2>
-
-                    <p>
-                        Launch with analytics,
-                        optimization, monitoring,
-                        and testing.
-                    </p>
-
-                </div>
-
-                <div class="mission-stage">
-
-                    <span class="mission-number">05</span>
-
-                    <h2>Scale</h2>
-
-                    <p>
-                        Continue growth through
-                        AI-powered optimization
-                        and automation.
-                    </p>
-
-                </div>
+                <a
+                    href="#contact"
+                    class="cta"
+                >
+                    Launch Project
+                </a>
 
             </div>
 
-            <div class="mission-right">
+        </section>
 
-                <div class="mission-circle">
 
-                    <div class="center-core">
+        <!-- =================================================
+             STARFIELD TRANSITION
+             ================================================= -->
 
-                        <div class="core-glow"></div>
+        <section
+            class="stars"
+            aria-hidden="true"
+        >
+
+            <div class="starfield"></div>
+
+        </section>
+
+
+        <!-- =================================================
+             MISSION CONTROL
+             ================================================= -->
+
+        <section
+            id="mission-control"
+            class="mission-control"
+            aria-labelledby="mission-title"
+        >
+
+            <div class="mission-container">
+
+
+                <!-- =========================================
+                     MISSION TEXT
+                     ========================================= -->
+
+                <div class="mission-left">
+
+
+                    <!-- Stage 01 -->
+
+                    <div
+                        class="mission-stage active"
+                        data-stage="01"
+                    >
+
+                        <span class="mission-number">
+                            01
+                        </span>
+
+                        <h2 id="mission-title">
+                            Discover
+                        </h2>
+
+                        <p>
+                            We analyze your business,
+                            industry, competitors,
+                            customers, and growth
+                            opportunities.
+                        </p>
 
                     </div>
 
-                    <div class="orbit orbit-1"></div>
-                    <div class="orbit orbit-2"></div>
-                    <div class="orbit orbit-3"></div>
+
+                    <!-- Stage 02 -->
+
+                    <div
+                        class="mission-stage"
+                        data-stage="02"
+                    >
+
+                        <span class="mission-number">
+                            02
+                        </span>
+
+                        <h2>
+                            Design
+                        </h2>
+
+                        <p>
+                            We architect premium commerce
+                            experiences designed for trust,
+                            engagement, and conversion.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Stage 03 -->
+
+                    <div
+                        class="mission-stage"
+                        data-stage="03"
+                    >
+
+                        <span class="mission-number">
+                            03
+                        </span>
+
+                        <h2>
+                            Build
+                        </h2>
+
+                        <p>
+                            Custom storefronts,
+                            automations, integrations,
+                            and AI systems.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Stage 04 -->
+
+                    <div
+                        class="mission-stage"
+                        data-stage="04"
+                    >
+
+                        <span class="mission-number">
+                            04
+                        </span>
+
+                        <h2>
+                            Deploy
+                        </h2>
+
+                        <p>
+                            Launch with analytics,
+                            optimization, monitoring,
+                            and testing.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Stage 05 -->
+
+                    <div
+                        class="mission-stage"
+                        data-stage="05"
+                    >
+
+                        <span class="mission-number">
+                            05
+                        </span>
+
+                        <h2>
+                            Scale
+                        </h2>
+
+                        <p>
+                            Continue growth through
+                            AI-powered optimization
+                            and automation.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================================
+                     MISSION ORBITAL SYSTEM
+                     ========================================= -->
+
+                <div class="mission-right">
+
+                    <div
+                        class="mission-circle"
+                        aria-hidden="true"
+                    >
+
+
+                        <!-- Core -->
+
+                        <div class="center-core">
+
+                            <div class="core-glow"></div>
+
+                        </div>
+
+
+                        <!-- Orbits -->
+
+                        <div
+                            class="orbit orbit-1"
+                        ></div>
+
+                        <div
+                            class="orbit orbit-2"
+                        ></div>
+
+                        <div
+                            class="orbit orbit-3"
+                        ></div>
+
+                    </div>
 
                 </div>
 
             </div>
 
-        </div>
+        </section>
 
-    </section>
 
-    <!-- ========================= -->
-    <!-- AI AGENT CONSTELLATION -->
-    <!-- ========================= -->
+        <!-- =================================================
+             AI AGENT CONSTELLATION
+             ================================================= -->
 
-    <section id="agents" class="agent-network">
+        <section
+            id="agents"
+            class="agent-network"
+            aria-labelledby="agents-title"
+        >
 
-        <div class="agent-header">
 
-            <span class="section-label">
-                AI OPERATING SYSTEM
+            <!-- =============================================
+                 SECTION HEADER
+                 ============================================= -->
+
+            <div class="agent-header">
+
+                <span class="section-label">
+                    AI OPERATING SYSTEM
+                </span>
+
+
+                <h2 id="agents-title">
+                    An Ecosystem Of Specialized Agents
+                </h2>
+
+
+                <p>
+                    Each agent performs a focused mission.
+                    Together they create a fully connected
+                    commerce growth engine.
+                </p>
+
+            </div>
+
+
+            <!-- =============================================
+                 TECH GRID
+                 ============================================= -->
+
+            <div
+                class="tech-grid"
+                aria-hidden="true"
+            ></div>
+
+
+            <!-- =============================================
+                 NETWORK
+                 ============================================= -->
+
+            <div class="network-wrapper">
+
+
+                <!-- Particle layer -->
+
+                <div
+                    class="particle-field"
+                    aria-hidden="true"
+                ></div>
+
+
+                <!-- =========================================
+                     CONNECTION SYSTEM
+                     ========================================= -->
+
+                <svg
+                    class="network-lines"
+                    viewBox="0 0 1200 800"
+                    preserveAspectRatio="xMidYMid meet"
+                    aria-hidden="true"
+                >
+
+
+                    <!-- Discovery -->
+
+                    <line
+                        id="beam-discovery"
+                        class="beam"
+                        x1="600"
+                        y1="400"
+                        x2="250"
+                        y2="200"
+                    />
+
+
+                    <!-- Marketing -->
+
+                    <line
+                        id="beam-marketing"
+                        class="beam"
+                        x1="600"
+                        y1="400"
+                        x2="950"
+                        y2="200"
+                    />
+
+
+                    <!-- Store -->
+
+                    <line
+                        id="beam-store"
+                        class="beam"
+                        x1="600"
+                        y1="400"
+                        x2="250"
+                        y2="600"
+                    />
+
+
+                    <!-- Support -->
+
+                    <line
+                        id="beam-support"
+                        class="beam"
+                        x1="600"
+                        y1="400"
+                        x2="950"
+                        y2="600"
+                    />
+
+
+                    <!-- Analytics -->
+
+                    <line
+                        id="beam-analytics"
+                        class="beam"
+                        x1="600"
+                        y1="400"
+                        x2="600"
+                        y2="120"
+                    />
+
+
+                    <!-- Visual -->
+
+                    <line
+                        id="beam-visual"
+                        class="beam"
+                        x1="600"
+                        y1="400"
+                        x2="600"
+                        y2="700"
+                    />
+
+                </svg>
+
+
+                <!-- =========================================
+                     AI CORE
+                     ========================================= -->
+
+                <div
+                    class="agent core"
+                    aria-label="AI Core"
+                >
+
+                    <span>
+                        AI Core
+                    </span>
+
+                </div>
+
+
+                <!-- =========================================
+                     DISCOVERY AGENT
+                     ========================================= -->
+
+                <div
+                    class="agent discovery"
+                    aria-label="Discovery Agent"
+                >
+
+                    <span>
+                        Discovery Agent
+                    </span>
+
+                </div>
+
+
+                <!-- =========================================
+                     MARKETING AGENT
+                     ========================================= -->
+
+                <div
+                    class="agent marketing"
+                    aria-label="Marketing Agent"
+                >
+
+                    <span>
+                        Marketing Agent
+                    </span>
+
+                </div>
+
+
+                <!-- =========================================
+                     STORE AGENT
+                     ========================================= -->
+
+                <div
+                    class="agent store"
+                    aria-label="Store Agent"
+                >
+
+                    <span>
+                        Store Agent
+                    </span>
+
+                </div>
+
+
+                <!-- =========================================
+                     SUPPORT AGENT
+                     ========================================= -->
+
+                <div
+                    class="agent support"
+                    aria-label="Support Agent"
+                >
+
+                    <span>
+                        Support Agent
+                    </span>
+
+                </div>
+
+
+                <!-- =========================================
+                     ANALYTICS AGENT
+                     ========================================= -->
+
+                <div
+                    class="agent analytics"
+                    aria-label="Analytics Agent"
+                >
+
+                    <span>
+                        Analytics Agent
+                    </span>
+
+                </div>
+
+
+                <!-- =========================================
+                     VISUAL AGENT
+                     ========================================= -->
+
+                <div
+                    class="agent visual"
+                    aria-label="Visual Agent"
+                >
+
+                    <span>
+                        Visual Agent
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 AGENT INFORMATION
+                 ============================================= -->
+
+            <div class="agent-info">
+
+                <h3 id="agentTitle">
+                    Discovery Agent
+                </h3>
+
+
+                <p id="agentDescription">
+                    Understands customer intent,
+                    market positioning,
+                    competitor insights,
+                    and growth opportunities.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             STORE SHOWCASE
+             ================================================= -->
+
+        <section
+            id="store"
+            class="store"
+            aria-labelledby="store-title"
+        >
+
+            <div class="store-container">
+
+                <span class="section-label">
+                    COMMERCE SYSTEM
+                </span>
+
+                <h2 id="store-title">
+                    Intelligent Commerce,
+                    Built To Scale.
+                </h2>
+
+                <p>
+                    Explore the commerce systems,
+                    AI capabilities, and digital
+                    experiences powering modern brands.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CONTACT
+             ================================================= -->
+
+        <section
+            id="contact"
+            class="contact"
+            aria-labelledby="contact-title"
+        >
+
+            <div class="contact-container">
+
+                <span class="section-label">
+                    START A MISSION
+                </span>
+
+                <h2 id="contact-title">
+                    Ready To Launch?
+                </h2>
+
+                <p>
+                    Let's engineer your next
+                    commerce experience.
+                </p>
+
+                <a
+                    href="mailto:hello@seascapecommerce.com"
+                    class="cta"
+                >
+                    Contact Seascape
+                </a>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer class="site-footer">
+
+        <div class="footer-inner">
+
+            <span>
+                © 2026 Seascape Commerce
             </span>
 
-            <h2>
-                An Ecosystem Of Specialized Agents
-            </h2>
-
-            <p>
-                Each agent performs a focused mission.
-                Together they create a fully connected
-                commerce growth engine.
-            </p>
+            <span>
+                AI Commerce Systems
+            </span>
 
         </div>
 
-        <div class="tech-grid"></div>
+    </footer>
 
-        <div class="network-wrapper">
 
-            <div class="particle-field"></div>
+    <!-- =====================================================
+         JAVASCRIPT
+         IMPORTANT: Keep this order.
+         ===================================================== -->
 
-            <svg class="network-lines"
-                 viewBox="0 0 1200 800">
+    <script
+        src="js/smooth-scroll.js"
+    ></script>
 
-                <line
-                    id="beam-discovery"
-                    class="beam"
-                    x1="600"
-                    y1="400"
-                    x2="250"
-                    y2="200" />
+    <script
+        src="js/animations.js"
+    ></script>
 
-                <line
-                    id="beam-marketing"
-                    class="beam"
-                    x1="600"
-                    y1="400"
-                    x2="950"
-                    y2="200" />
+    <script
+        src="js/mission-control.js"
+    ></script>
 
-                <line
-                    id="beam-store"
-                    class="beam"
-                    x1="600"
-                    y1="400"
-                    x2="250"
-                    y2="600" />
+    <script
+        src="js/agent-network.js"
+    ></script>
 
-                <line
-                    id="beam-support"
-                    class="beam"
-                    x1="600"
-                    y1="400"
-                    x2="950"
-                    y2="600" />
+    <script
+        src="js/particles.js"
+    ></script>
 
-                <line
-                    id="beam-analytics"
-                    class="beam"
-                    x1="600"
-                    y1="400"
-                    x2="600"
-                    y2="120" />
-
-                <line
-                    id="beam-visual"
-                    class="beam"
-                    x1="600"
-                    y1="400"
-                    x2="600"
-                    y2="700" />
-
-            </svg>
-
-            <div class="agent core">
-                <span>AI Core</span>
-            </div>
-
-            <div class="agent discovery">
-                <span>Discovery Agent</span>
-            </div>
-
-            <div class="agent marketing">
-                <span>Marketing Agent</span>
-            </div>
-
-            <div class="agent store">
-                <span>Store Agent</span>
-            </div>
-
-            <div class="agent support">
-                <span>Support Agent</span>
-            </div>
-
-            <div class="agent analytics">
-                <span>Analytics Agent</span>
-            </div>
-
-            <div class="agent visual">
-                <span>Visual Agent</span>
-            </div>
-
-        </div>
-
-        <!-- Agent Information Panel -->
-
-        <div class="agent-info">
-
-            <h3 id="agentTitle">
-                Discovery Agent
-            </h3>
-
-            <p id="agentDescription">
-
-                Understands customer intent,
-                market positioning,
-                competitor insights,
-                and growth opportunities.
-
-            </p>
-
-        </div>
-
-    </section>
-
-    <!-- ========================= -->
-    <!-- STORE SHOWCASE -->
-    <!-- ========================= -->
-
-    <section id="store" class="store">
-
-        <!-- Coming next -->
-
-    </section>
-
-    <!-- ========================= -->
-    <!-- CONTACT -->
-    <!-- ========================= -->
-
-    <section id="contact" class="contact">
-
-        <!-- Coming later -->
-
-    </section>
-
-    <!-- ========================= -->
-    <!-- JAVASCRIPT -->
-    <!-- ========================= -->
-
-    <script src="js/smooth-scroll.js"></script>
-
-    <script src="js/animations.js"></script>
-
-    <script src="js/mission-control.js"></script>
-
-    <script src="js/agent-network.js"></script>
-
-    <script src="js/particles.js"></script>
 
 </body>
 
