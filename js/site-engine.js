@@ -164,3 +164,18 @@ splitTargets.forEach(target=>{
     });
 
 });
+gsap.to(".nebula",{
+
+    x:100,
+
+    y:-50,
+
+    duration:40,
+
+    repeat:-1,
+
+    yoyo:true,
+
+    ease:"sine.inOut"
+
+});
