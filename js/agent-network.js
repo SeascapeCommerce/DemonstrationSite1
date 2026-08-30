@@ -78,3 +78,77 @@ gsap.from(".agent",{
     }
 
 });
+
+
+gsap.to(".beam",{
+    strokeDashoffset:-200,
+    duration:8,
+    repeat:-1,
+    ease:"none",
+    stagger:.3
+});
+
+gsap.utils.toArray(".agent").forEach(node=>{
+
+    gsap.to(node,{
+        y:"random(-15,15)",
+        x:"random(-10,10)",
+        duration:"random(4,8)",
+        repeat:-1,
+        yoyo:true,
+        ease:"sine.inOut"
+    });
+
+});
+
+const coreTL = gsap.timeline({
+    repeat:-1
+});
+
+coreTL.to(".core",{
+    scale:1.08,
+    duration:2,
+    ease:"power2.inOut"
+});
+
+coreTL.to(".core",{
+    scale:1,
+    duration:2,
+    ease:"power2.inOut"
+});
+
+const wrapper =
+document.querySelector(".network-wrapper");
+
+wrapper.addEventListener("mousemove",(e)=>{
+
+    const rect =
+    wrapper.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    document
+    .querySelectorAll(".agent")
+    .forEach(agent=>{
+
+        const centerX =
+        agent.offsetLeft +
+        agent.offsetWidth/2;
+
+        const centerY =
+        agent.offsetTop +
+        agent.offsetHeight/2;
+
+        const dx = x-centerX;
+        const dy = y-centerY;
+
+        gsap.to(agent,{
+            x:dx*.02,
+            y:dy*.02,
+            duration:.8
+        });
+
+    });
+
+});
