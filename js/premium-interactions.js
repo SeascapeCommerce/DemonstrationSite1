@@ -27,3 +27,20 @@ window.addEventListener("load",()=>{
     });
 
 });
+
+
+const glow = document.createElement("div");
+
+glow.classList.add("cursor-glow");
+
+document.body.appendChild(glow);
+
+window.addEventListener("mousemove",(e)=>{
+
+    gsap.to(glow,{
+        x:e.clientX,
+        y:e.clientY,
+        duration:.4
+    });
+
+});
