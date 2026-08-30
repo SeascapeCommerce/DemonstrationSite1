@@ -132,3 +132,35 @@ gsap.from(".site-footer",{
     }
 
 });
+
+
+const splitTargets = document.querySelectorAll(
+".headline, .agent-header h2, .industry-intro h2, .store-header h2, .terminal-title"
+);
+
+splitTargets.forEach(target=>{
+
+    const split = new SplitType(target,{
+        types:"lines"
+    });
+
+    gsap.from(split.lines,{
+
+        y:100,
+
+        opacity:0,
+
+        stagger:.08,
+
+        duration:1.3,
+
+        ease:"power4.out",
+
+        scrollTrigger:{
+            trigger:target,
+            start:"top 85%"
+        }
+
+    });
+
+});
