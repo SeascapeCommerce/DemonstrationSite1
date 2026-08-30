@@ -24,30 +24,21 @@
         content="#050505"
     >
 
+    <meta
+        name="color-scheme"
+        content="dark"
+    >
+
     <title>
         Seascape Commerce — Commerce Beyond Orbit
     </title>
 
 
     <!-- =====================================================
-         STYLES
+         FONT
          ===================================================== -->
 
-    <link
-        rel="stylesheet"
-        href="css/style.css"
-    >
-
-
-    <!-- =====================================================
-         GOOGLE / EXTERNAL FONTS
-         Optional — can be replaced with local fonts later.
-         ===================================================== -->
-
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <link
         rel="preconnect"
@@ -58,6 +49,16 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         MAIN CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
     >
 
 
@@ -88,7 +89,6 @@
 
     <!-- =====================================================
          SPLIT TYPE
-         Used later for advanced typography animation.
          ===================================================== -->
 
     <script
@@ -101,9 +101,8 @@
 
 <body>
 
-
     <!-- =====================================================
-         NAVIGATION
+         SITE NAVIGATION
          ===================================================== -->
 
     <nav
@@ -130,21 +129,33 @@
                 Agents
             </a>
 
+            <a href="#industries">
+                Industries
+            </a>
+
             <a href="#store">
                 Store
             </a>
 
-            <a href="#contact">
-                Contact
+            <a href="#launch">
+                Launch
             </a>
 
         </div>
+
+
+        <a
+            href="#launch"
+            class="nav-action"
+        >
+            Start A Project
+        </a>
 
     </nav>
 
 
     <!-- =====================================================
-         PAGE WRAPPER
+         MAIN
          ===================================================== -->
 
     <main id="top">
@@ -158,8 +169,6 @@
             class="hero"
             aria-labelledby="hero-title"
         >
-
-            <!-- Background video -->
 
             <video
                 class="hero-video"
@@ -179,17 +188,32 @@
             </video>
 
 
-            <!-- Video darkness / contrast layer -->
-
             <div
                 class="hero-overlay"
                 aria-hidden="true"
             ></div>
 
 
-            <!-- Hero content -->
+            <div
+                class="hero-noise"
+                aria-hidden="true"
+            ></div>
+
 
             <div class="hero-content">
+
+                <div class="hero-meta">
+
+                    <span>
+                        SEASCAPE / 001
+                    </span>
+
+                    <span>
+                        AI COMMERCE SYSTEMS
+                    </span>
+
+                </div>
+
 
                 <p class="eyebrow">
                     AI COMMERCE SYSTEMS
@@ -200,22 +224,52 @@
                     id="hero-title"
                     class="headline"
                 >
-                    Commerce Beyond Orbit
+                    Commerce
+                    <span>Beyond Orbit.</span>
                 </h1>
 
 
-                <p class="subhead">
-                    AI-powered ecommerce experiences engineered
-                    for ambitious brands.
-                </p>
+                <div class="hero-bottom">
+
+                    <p class="subhead">
+                        AI-powered ecommerce experiences
+                        engineered for ambitious brands.
+                    </p>
 
 
-                <a
-                    href="#contact"
-                    class="cta"
-                >
-                    Launch Project
-                </a>
+                    <a
+                        href="#launch"
+                        class="cta"
+                    >
+
+                        <span>
+                            Launch Project
+                        </span>
+
+                        <span
+                            class="cta-arrow"
+                            aria-hidden="true"
+                        >
+                            ↗
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="hero-scroll"
+                aria-hidden="true"
+            >
+
+                <span>
+                    SCROLL TO EXPLORE
+                </span>
+
+                <span class="scroll-line"></span>
 
             </div>
 
@@ -232,6 +286,8 @@
         >
 
             <div class="starfield"></div>
+
+            <div class="stars-glow"></div>
 
         </section>
 
@@ -250,13 +306,31 @@
 
 
                 <!-- =========================================
+                     MISSION INTRO
+                     ========================================= -->
+
+                <div class="mission-intro">
+
+                    <span class="section-label">
+                        01 / MISSION CONTROL
+                    </span>
+
+                    <p>
+                        From first insight to continuous
+                        optimization, every Seascape system
+                        is engineered as an interconnected
+                        growth architecture.
+                    </p>
+
+                </div>
+
+
+                <!-- =========================================
                      MISSION TEXT
                      ========================================= -->
 
                 <div class="mission-left">
 
-
-                    <!-- Stage 01 -->
 
                     <div
                         class="mission-stage active"
@@ -281,8 +355,6 @@
                     </div>
 
 
-                    <!-- Stage 02 -->
-
                     <div
                         class="mission-stage"
                         data-stage="02"
@@ -304,8 +376,6 @@
 
                     </div>
 
-
-                    <!-- Stage 03 -->
 
                     <div
                         class="mission-stage"
@@ -329,8 +399,6 @@
                     </div>
 
 
-                    <!-- Stage 04 -->
-
                     <div
                         class="mission-stage"
                         data-stage="04"
@@ -352,8 +420,6 @@
 
                     </div>
 
-
-                    <!-- Stage 05 -->
 
                     <div
                         class="mission-stage"
@@ -390,31 +456,50 @@
                         aria-hidden="true"
                     >
 
+                        <div class="orbital-label orbital-label-1">
+                            DISCOVER
+                        </div>
 
-                        <!-- Core -->
+                        <div class="orbital-label orbital-label-2">
+                            BUILD
+                        </div>
+
+                        <div class="orbital-label orbital-label-3">
+                            SCALE
+                        </div>
+
 
                         <div class="center-core">
 
                             <div class="core-glow"></div>
 
+                            <span>
+                                SC
+                            </span>
+
                         </div>
 
 
-                        <!-- Orbits -->
+                        <div class="orbit orbit-1"></div>
 
-                        <div
-                            class="orbit orbit-1"
-                        ></div>
+                        <div class="orbit orbit-2"></div>
 
-                        <div
-                            class="orbit orbit-2"
-                        ></div>
-
-                        <div
-                            class="orbit orbit-3"
-                        ></div>
+                        <div class="orbit orbit-3"></div>
 
                     </div>
+
+                </div>
+
+
+                <div class="mission-index">
+
+                    <span>
+                        SYSTEM / 01
+                    </span>
+
+                    <span>
+                        05 STAGES
+                    </span>
 
                 </div>
 
@@ -434,34 +519,27 @@
         >
 
 
-            <!-- =============================================
-                 SECTION HEADER
-                 ============================================= -->
-
             <div class="agent-header">
 
                 <span class="section-label">
-                    AI OPERATING SYSTEM
+                    02 / AI OPERATING SYSTEM
                 </span>
 
 
                 <h2 id="agents-title">
-                    An Ecosystem Of Specialized Agents
+                    An Ecosystem
+                    <span>Of Specialized Agents.</span>
                 </h2>
 
 
                 <p>
                     Each agent performs a focused mission.
-                    Together they create a fully connected
-                    commerce growth engine.
+                    Together they create a connected
+                    commerce intelligence system.
                 </p>
 
             </div>
 
-
-            <!-- =============================================
-                 TECH GRID
-                 ============================================= -->
 
             <div
                 class="tech-grid"
@@ -469,14 +547,8 @@
             ></div>
 
 
-            <!-- =============================================
-                 NETWORK
-                 ============================================= -->
-
             <div class="network-wrapper">
 
-
-                <!-- Particle layer -->
 
                 <div
                     class="particle-field"
@@ -484,19 +556,12 @@
                 ></div>
 
 
-                <!-- =========================================
-                     CONNECTION SYSTEM
-                     ========================================= -->
-
                 <svg
                     class="network-lines"
                     viewBox="0 0 1200 800"
                     preserveAspectRatio="xMidYMid meet"
                     aria-hidden="true"
                 >
-
-
-                    <!-- Discovery -->
 
                     <line
                         id="beam-discovery"
@@ -507,9 +572,6 @@
                         y2="200"
                     />
 
-
-                    <!-- Marketing -->
-
                     <line
                         id="beam-marketing"
                         class="beam"
@@ -518,9 +580,6 @@
                         x2="950"
                         y2="200"
                     />
-
-
-                    <!-- Store -->
 
                     <line
                         id="beam-store"
@@ -531,9 +590,6 @@
                         y2="600"
                     />
 
-
-                    <!-- Support -->
-
                     <line
                         id="beam-support"
                         class="beam"
@@ -543,9 +599,6 @@
                         y2="600"
                     />
 
-
-                    <!-- Analytics -->
-
                     <line
                         id="beam-analytics"
                         class="beam"
@@ -554,9 +607,6 @@
                         x2="600"
                         y2="120"
                     />
-
-
-                    <!-- Visual -->
 
                     <line
                         id="beam-visual"
@@ -570,14 +620,12 @@
                 </svg>
 
 
-                <!-- =========================================
-                     AI CORE
-                     ========================================= -->
-
                 <div
                     class="agent core"
                     aria-label="AI Core"
                 >
+
+                    <div class="agent-pulse"></div>
 
                     <span>
                         AI Core
@@ -586,13 +634,10 @@
                 </div>
 
 
-                <!-- =========================================
-                     DISCOVERY AGENT
-                     ========================================= -->
-
                 <div
                     class="agent discovery"
                     aria-label="Discovery Agent"
+                    tabindex="0"
                 >
 
                     <span>
@@ -602,13 +647,10 @@
                 </div>
 
 
-                <!-- =========================================
-                     MARKETING AGENT
-                     ========================================= -->
-
                 <div
                     class="agent marketing"
                     aria-label="Marketing Agent"
+                    tabindex="0"
                 >
 
                     <span>
@@ -618,13 +660,10 @@
                 </div>
 
 
-                <!-- =========================================
-                     STORE AGENT
-                     ========================================= -->
-
                 <div
                     class="agent store"
                     aria-label="Store Agent"
+                    tabindex="0"
                 >
 
                     <span>
@@ -634,13 +673,10 @@
                 </div>
 
 
-                <!-- =========================================
-                     SUPPORT AGENT
-                     ========================================= -->
-
                 <div
                     class="agent support"
                     aria-label="Support Agent"
+                    tabindex="0"
                 >
 
                     <span>
@@ -650,13 +686,10 @@
                 </div>
 
 
-                <!-- =========================================
-                     ANALYTICS AGENT
-                     ========================================= -->
-
                 <div
                     class="agent analytics"
                     aria-label="Analytics Agent"
+                    tabindex="0"
                 >
 
                     <span>
@@ -666,13 +699,10 @@
                 </div>
 
 
-                <!-- =========================================
-                     VISUAL AGENT
-                     ========================================= -->
-
                 <div
                     class="agent visual"
                     aria-label="Visual Agent"
+                    tabindex="0"
                 >
 
                     <span>
@@ -684,415 +714,472 @@
             </div>
 
 
-            <!-- =============================================
-                 AGENT INFORMATION
-                 ============================================= -->
-
             <div class="agent-info">
 
-                <h3 id="agentTitle">
-                    Discovery Agent
-                </h3>
+                <div class="agent-info-number">
+                    01
+                </div>
 
+                <div>
 
-                <p id="agentDescription">
-                    Understands customer intent,
-                    market positioning,
-                    competitor insights,
-                    and growth opportunities.
-                </p>
+                    <h3 id="agentTitle">
+                        Discovery Agent
+                    </h3>
+
+                    <p id="agentDescription">
+                        Understands customer intent,
+                        market positioning,
+                        competitor insights,
+                        and growth opportunities.
+                    </p>
+
+                </div>
 
             </div>
 
         </section>
 
-<!-- =====================================================
-     INDUSTRY SHOWCASE
-     ===================================================== -->
 
-<section
-    id="industries"
-    class="industry-showcase"
-    aria-labelledby="industry-title"
->
+        <!-- =================================================
+             INDUSTRY SHOWCASE
+             ================================================= -->
 
-    <!-- =================================================
-         SECTION INTRO
-         ================================================= -->
-
-    <div class="industry-intro">
-
-        <span class="section-label">
-            INDUSTRY INTELLIGENCE
-        </span>
-
-        <h2 id="industry-title">
-            Built For The Way
-            Your Industry Moves.
-        </h2>
-
-        <p>
-            Seascape adapts AI-powered commerce systems
-            to the unique customers, workflows, products,
-            and buying environments of every industry.
-        </p>
-
-    </div>
+        <section
+            id="industries"
+            class="industry-showcase"
+            aria-labelledby="industry-title"
+        >
 
 
-    <!-- =================================================
-         INDUSTRY SYSTEM
-         ================================================= -->
+            <div class="industry-intro">
 
-    <div class="industry-system">
+                <span class="section-label">
+                    03 / INDUSTRY INTELLIGENCE
+                </span>
 
 
-        <!-- =============================================
-             INDUSTRY VISUAL
-             ============================================= -->
+                <h2 id="industry-title">
+                    Built For The Way
+                    <span>Your Industry Moves.</span>
+                </h2>
 
-        <div class="industry-visual">
 
-            <div class="industry-image-wrapper">
+                <p>
+                    Seascape adapts AI-powered commerce
+                    systems to the customers, workflows,
+                    products, and buying environments
+                    unique to every industry.
+                </p>
 
-                <img
-                    class="industry-image"
-                    src="assets/images/industries/fashion.jpg"
-                    alt="Fashion commerce experience"
-                >
+            </div>
+
+
+            <div class="industry-system">
+
+
+                <!-- =========================================
+                     INDUSTRY VISUAL
+                     ========================================= -->
+
+                <div class="industry-visual">
+
+                    <div class="industry-image-wrapper">
+
+                        <img
+                            class="industry-image"
+                            src="assets/images/industries/fashion.jpg"
+                            alt="Fashion commerce experience"
+                            loading="lazy"
+                        >
+
+                        <div
+                            class="industry-image-overlay"
+                            aria-hidden="true"
+                        ></div>
+
+                    </div>
+
+
+                    <div
+                        class="industry-scan"
+                        aria-hidden="true"
+                    ></div>
+
+
+                    <div
+                        class="industry-coordinate top-left"
+                        aria-hidden="true"
+                    >
+                        SC / 03
+                    </div>
+
+
+                    <div
+                        class="industry-coordinate bottom-left"
+                        aria-hidden="true"
+                    >
+                        INDUSTRY INTELLIGENCE
+                    </div>
+
+
+                    <div
+                        class="industry-coordinate bottom-right"
+                        aria-hidden="true"
+                    >
+                        SYSTEM ACTIVE
+                    </div>
+
+                </div>
+
+
+                <!-- =========================================
+                     INDUSTRY LIST
+                     ========================================= -->
 
                 <div
-                    class="industry-image-overlay"
-                    aria-hidden="true"
-                ></div>
+                    class="industry-list"
+                    role="tablist"
+                    aria-label="Industries"
+                >
+
+
+                    <button
+                        class="industry-item active"
+                        type="button"
+                        data-industry="fashion"
+                        data-image="assets/images/industries/fashion.jpg"
+                        role="tab"
+                        aria-selected="true"
+                    >
+
+                        <span class="industry-index">
+                            01
+                        </span>
+
+                        <span class="industry-name">
+                            Fashion
+                        </span>
+
+                        <span
+                            class="industry-arrow"
+                            aria-hidden="true"
+                        >
+                            ↗
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="industry-item"
+                        type="button"
+                        data-industry="construction"
+                        data-image="assets/images/industries/construction.jpg"
+                        role="tab"
+                        aria-selected="false"
+                    >
+
+                        <span class="industry-index">
+                            02
+                        </span>
+
+                        <span class="industry-name">
+                            Construction
+                        </span>
+
+                        <span
+                            class="industry-arrow"
+                            aria-hidden="true"
+                        >
+                            ↗
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="industry-item"
+                        type="button"
+                        data-industry="healthcare"
+                        data-image="assets/images/industries/healthcare.jpg"
+                        role="tab"
+                        aria-selected="false"
+                    >
+
+                        <span class="industry-index">
+                            03
+                        </span>
+
+                        <span class="industry-name">
+                            Healthcare
+                        </span>
+
+                        <span
+                            class="industry-arrow"
+                            aria-hidden="true"
+                        >
+                            ↗
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="industry-item"
+                        type="button"
+                        data-industry="sporting"
+                        data-image="assets/images/industries/sporting.jpg"
+                        role="tab"
+                        aria-selected="false"
+                    >
+
+                        <span class="industry-index">
+                            04
+                        </span>
+
+                        <span class="industry-name">
+                            Sporting Goods
+                        </span>
+
+                        <span
+                            class="industry-arrow"
+                            aria-hidden="true"
+                        >
+                            ↗
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="industry-item"
+                        type="button"
+                        data-industry="gaming"
+                        data-image="assets/images/industries/gaming.jpg"
+                        role="tab"
+                        aria-selected="false"
+                    >
+
+                        <span class="industry-index">
+                            05
+                        </span>
+
+                        <span class="industry-name">
+                            Gaming
+                        </span>
+
+                        <span
+                            class="industry-arrow"
+                            aria-hidden="true"
+                        >
+                            ↗
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="industry-item"
+                        type="button"
+                        data-industry="home"
+                        data-image="assets/images/industries/home.jpg"
+                        role="tab"
+                        aria-selected="false"
+                    >
+
+                        <span class="industry-index">
+                            06
+                        </span>
+
+                        <span class="industry-name">
+                            Home Furnishings
+                        </span>
+
+                        <span
+                            class="industry-arrow"
+                            aria-hidden="true"
+                        >
+                            ↗
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="industry-item"
+                        type="button"
+                        data-industry="education"
+                        data-image="assets/images/industries/education.jpg"
+                        role="tab"
+                        aria-selected="false"
+                    >
+
+                        <span class="industry-index">
+                            07
+                        </span>
+
+                        <span class="industry-name">
+                            Education
+                        </span>
+
+                        <span
+                            class="industry-arrow"
+                            aria-hidden="true"
+                        >
+                            ↗
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="industry-item"
+                        type="button"
+                        data-industry="automotive"
+                        data-image="assets/images/industries/automotive.jpg"
+                        role="tab"
+                        aria-selected="false"
+                    >
+
+                        <span class="industry-index">
+                            08
+                        </span>
+
+                        <span class="industry-name">
+                            Automotive
+                        </span>
+
+                        <span
+                            class="industry-arrow"
+                            aria-hidden="true"
+                        >
+                            ↗
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="industry-item"
+                        type="button"
+                        data-industry="industrial"
+                        data-image="assets/images/industries/industrial.jpg"
+                        role="tab"
+                        aria-selected="false"
+                    >
+
+                        <span class="industry-index">
+                            09
+                        </span>
+
+                        <span class="industry-name">
+                            Industrial Supply
+                        </span>
+
+                        <span
+                            class="industry-arrow"
+                            aria-hidden="true"
+                        >
+                            ↗
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="industry-item"
+                        type="button"
+                        data-industry="beauty"
+                        data-image="assets/images/industries/beauty.jpg"
+                        role="tab"
+                        aria-selected="false"
+                    >
+
+                        <span class="industry-index">
+                            10
+                        </span>
+
+                        <span class="industry-name">
+                            Beauty
+                        </span>
+
+                        <span
+                            class="industry-arrow"
+                            aria-hidden="true"
+                        >
+                            ↗
+                        </span>
+
+                    </button>
+
+                </div>
 
             </div>
 
 
-            <!-- Visual scanning line -->
+            <!-- =============================================
+                 INDUSTRY INFORMATION
+                 ============================================= -->
 
-            <div
-                class="industry-scan"
-                aria-hidden="true"
-            ></div>
+            <div class="industry-information">
 
-
-            <!-- Corner coordinates -->
-
-            <div
-                class="industry-coordinate top-left"
-                aria-hidden="true"
-            >
-                SC-01
-            </div>
-
-            <div
-                class="industry-coordinate bottom-right"
-                aria-hidden="true"
-            >
-                SYSTEM ACTIVE
-            </div>
-
-        </div>
-
-
-        <!-- =============================================
-             INDUSTRY LIST
-             ============================================= -->
-
-        <div class="industry-list">
-
-
-            <!-- Fashion -->
-
-            <button
-                class="industry-item active"
-                data-industry="fashion"
-                data-image="assets/images/industries/fashion.jpg"
-            >
-
-                <span class="industry-index">
+                <div class="industry-info-number">
                     01
+                </div>
+
+                <div>
+
+                    <span class="industry-info-label">
+                        CURRENT SYSTEM
+                    </span>
+
+                    <h3 class="industry-info-title">
+                        Fashion Commerce
+                    </h3>
+
+                    <p class="industry-info-description">
+                        AI-powered discovery, visual
+                        merchandising, personalized shopping,
+                        product storytelling, and conversion
+                        optimization.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 CAPABILITY TAGS
+                 ============================================= -->
+
+            <div class="industry-capabilities">
+
+                <span>
+                    AI DISCOVERY
                 </span>
 
-                <span class="industry-name">
-                    Fashion
+                <span>
+                    VISUAL COMMERCE
                 </span>
 
-                <span class="industry-arrow">
-                    ↗
+                <span>
+                    PERSONALIZATION
                 </span>
 
-            </button>
-
-
-            <!-- Construction -->
-
-            <button
-                class="industry-item"
-                data-industry="construction"
-                data-image="assets/images/industries/construction.jpg"
-            >
-
-                <span class="industry-index">
-                    02
+                <span>
+                    AUTOMATION
                 </span>
 
-                <span class="industry-name">
-                    Construction
+                <span>
+                    ANALYTICS
                 </span>
 
-                <span class="industry-arrow">
-                    ↗
-                </span>
+            </div>
 
-            </button>
+        </section>
 
 
-            <!-- Healthcare -->
-
-            <button
-                class="industry-item"
-                data-industry="healthcare"
-                data-image="assets/images/industries/healthcare.jpg"
-            >
-
-                <span class="industry-index">
-                    03
-                </span>
-
-                <span class="industry-name">
-                    Healthcare
-                </span>
-
-                <span class="industry-arrow">
-                    ↗
-                </span>
-
-            </button>
-
-
-            <!-- Sporting Goods -->
-
-            <button
-                class="industry-item"
-                data-industry="sporting"
-                data-image="assets/images/industries/sporting.jpg"
-            >
-
-                <span class="industry-index">
-                    04
-                </span>
-
-                <span class="industry-name">
-                    Sporting Goods
-                </span>
-
-                <span class="industry-arrow">
-                    ↗
-                </span>
-
-            </button>
-
-
-            <!-- Gaming -->
-
-            <button
-                class="industry-item"
-                data-industry="gaming"
-                data-image="assets/images/industries/gaming.jpg"
-            >
-
-                <span class="industry-index">
-                    05
-                </span>
-
-                <span class="industry-name">
-                    Gaming
-                </span>
-
-                <span class="industry-arrow">
-                    ↗
-                </span>
-
-            </button>
-
-
-            <!-- Home Furnishings -->
-
-            <button
-                class="industry-item"
-                data-industry="home"
-                data-image="assets/images/industries/home.jpg"
-            >
-
-                <span class="industry-index">
-                    06
-                </span>
-
-                <span class="industry-name">
-                    Home Furnishings
-                </span>
-
-                <span class="industry-arrow">
-                    ↗
-                </span>
-
-            </button>
-
-
-            <!-- Education -->
-
-            <button
-                class="industry-item"
-                data-industry="education"
-                data-image="assets/images/industries/education.jpg"
-            >
-
-                <span class="industry-index">
-                    07
-                </span>
-
-                <span class="industry-name">
-                    Education
-                </span>
-
-                <span class="industry-arrow">
-                    ↗
-                </span>
-
-            </button>
-
-
-            <!-- Automotive -->
-
-            <button
-                class="industry-item"
-                data-industry="automotive"
-                data-image="assets/images/industries/automotive.jpg"
-            >
-
-                <span class="industry-index">
-                    08
-                </span>
-
-                <span class="industry-name">
-                    Automotive
-                </span>
-
-                <span class="industry-arrow">
-                    ↗
-                </span>
-
-            </button>
-
-
-            <!-- Industrial Supply -->
-
-            <button
-                class="industry-item"
-                data-industry="industrial"
-                data-image="assets/images/industries/industrial.jpg"
-            >
-
-                <span class="industry-index">
-                    09
-                </span>
-
-                <span class="industry-name">
-                    Industrial Supply
-                </span>
-
-                <span class="industry-arrow">
-                    ↗
-                </span>
-
-            </button>
-
-
-            <!-- Beauty -->
-
-            <button
-                class="industry-item"
-                data-industry="beauty"
-                data-image="assets/images/industries/beauty.jpg"
-            >
-
-                <span class="industry-index">
-                    10
-                </span>
-
-                <span class="industry-name">
-                    Beauty
-                </span>
-
-                <span class="industry-arrow">
-                    ↗
-                </span>
-
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <!-- =================================================
-         ACTIVE INDUSTRY INFORMATION
-         ================================================= -->
-
-    <div class="industry-information">
-
-        <div class="industry-info-number">
-            01
-        </div>
-
-        <div>
-
-            <h3 class="industry-info-title">
-                Fashion Commerce
-            </h3>
-
-            <p class="industry-info-description">
-                AI-powered discovery, visual merchandising,
-                personalized shopping, product storytelling,
-                and conversion optimization.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <!-- =================================================
-         AI CAPABILITY TAGS
-         ================================================= -->
-
-    <div class="industry-capabilities">
-
-        <span>
-            AI DISCOVERY
-        </span>
-
-        <span>
-            VISUAL COMMERCE
-        </span>
-
-        <span>
-            PERSONALIZATION
-        </span>
-
-        <span>
-            AUTOMATION
-        </span>
-
-        <span>
-            ANALYTICS
-        </span>
-
-    </div>
-
-</section>
         <!-- =================================================
              STORE SHOWCASE
              ================================================= -->
@@ -1103,16 +1190,35 @@
             aria-labelledby="store-title"
         >
 
+            <div class="store-background">
+
+                <div class="store-grid"></div>
+
+                <div class="store-glow"></div>
+
+            </div>
+
+
             <div class="store-container">
 
-                <span class="section-label">
-                    COMMERCE SYSTEM
-                </span>
+                <div class="store-meta">
+
+                    <span class="section-label">
+                        04 / COMMERCE SYSTEM
+                    </span>
+
+                    <span>
+                        SEASCAPE / STORE
+                    </span>
+
+                </div>
+
 
                 <h2 id="store-title">
                     Intelligent Commerce,
-                    Built To Scale.
+                    <span>Built To Scale.</span>
                 </h2>
+
 
                 <p>
                     Explore the commerce systems,
@@ -1120,47 +1226,123 @@
                     experiences powering modern brands.
                 </p>
 
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             CONTACT
-             ================================================= -->
-
-        <section
-            id="contact"
-            class="contact"
-            aria-labelledby="contact-title"
-        >
-
-            <div class="contact-container">
-
-                <span class="section-label">
-                    START A MISSION
-                </span>
-
-                <h2 id="contact-title">
-                    Ready To Launch?
-                </h2>
-
-                <p>
-                    Let's engineer your next
-                    commerce experience.
-                </p>
 
                 <a
-                    href="mailto:hello@seascapecommerce.com"
-                    class="cta"
+                    href="#launch"
+                    class="text-link"
                 >
-                    Contact Seascape
+
+                    <span>
+                        Explore The System
+                    </span>
+
+                    <span aria-hidden="true">
+                        ↗
+                    </span>
+
                 </a>
 
             </div>
 
         </section>
 
+
+        <!-- =================================================
+             LAUNCH SECTION
+             ================================================= -->
+
+        <section
+            id="launch"
+            class="launch"
+            aria-labelledby="launch-title"
+        >
+
+            <div
+                class="launch-background"
+                aria-hidden="true"
+            >
+
+                <div class="launch-grid"></div>
+
+                <div class="launch-orbit launch-orbit-1"></div>
+
+                <div class="launch-orbit launch-orbit-2"></div>
+
+                <div class="launch-core"></div>
+
+            </div>
+
+
+            <div class="launch-container">
+
+
+                <div class="launch-meta">
+
+                    <span class="section-label">
+                        05 / LAUNCH
+                    </span>
+
+                    <span>
+                        SEASCAPE COMMERCE
+                    </span>
+
+                </div>
+
+
+                <h2 id="launch-title">
+
+                    Ready To
+                    <span>Launch?</span>
+
+                </h2>
+
+
+                <p class="launch-description">
+
+                    Let's engineer your next
+                    commerce experience.
+
+                </p>
+
+
+                <div class="launch-actions">
+
+                    <a
+                        href="mailto:hello@seascapecommerce.com"
+                        class="cta cta-large"
+                    >
+
+                        <span>
+                            Contact Seascape
+                        </span>
+
+                        <span
+                            class="cta-arrow"
+                            aria-hidden="true"
+                        >
+                            ↗
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+                <div class="launch-footer">
+
+                    <span>
+                        AI COMMERCE SYSTEMS
+                    </span>
+
+                    <span>
+                        BUILT FOR AMBITION
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
 
     </main>
 
@@ -1178,8 +1360,12 @@
             </span>
 
             <span>
-                AI Commerce Systems
+                Commerce Beyond Orbit
             </span>
+
+            <a href="#top">
+                Back To Top ↑
+            </a>
 
         </div>
 
@@ -1188,32 +1374,19 @@
 
     <!-- =====================================================
          JAVASCRIPT
-         IMPORTANT: Keep this order.
          ===================================================== -->
 
-    <script
-        src="js/smooth-scroll.js"
-    ></script>
+    <script src="js/smooth-scroll.js"></script>
 
-    <script
-        src="js/animations.js"
-    ></script>
+    <script src="js/animations.js"></script>
 
-    <script
-        src="js/mission-control.js"
-    ></script>
+    <script src="js/mission-control.js"></script>
 
-    <script
-        src="js/agent-network.js"
-    ></script>
+    <script src="js/agent-network.js"></script>
 
-    <script
-        src="js/particles.js"
-    ></script>
+    <script src="js/particles.js"></script>
 
-    <script src="js/industry-showcase.js">
-        
-    </script>
+    <script src="js/industry-showcase.js"></script>
 
 
 </body>
