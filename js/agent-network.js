@@ -1,17 +1,19 @@
 /* =========================================================
    SEASCAPE COMMERCE
    AI AGENT CONSTELLATION
-   Advanced GSAP Interaction System
+   Spatial / Cinematic Network System
    ========================================================= */
 
 (() => {
 
+    "use strict";
+
     /* -----------------------------------------------------
-       SAFETY CHECK
+       DEPENDENCIES
        ----------------------------------------------------- */
 
     if (typeof gsap === "undefined") {
-        console.warn("GSAP is required for agent-network.js");
+        console.warn("Seascape: GSAP is required.");
         return;
     }
 
@@ -21,10 +23,10 @@
 
 
     /* -----------------------------------------------------
-       DOM REFERENCES
+       ELEMENTS
        ----------------------------------------------------- */
 
-    const network =
+    const section =
         document.querySelector(".agent-network");
 
     const wrapper =
@@ -42,6 +44,9 @@
     const particleField =
         document.querySelector(".particle-field");
 
+    const grid =
+        document.querySelector(".tech-grid");
+
     const title =
         document.getElementById("agentTitle");
 
@@ -49,14 +54,24 @@
         document.getElementById("agentDescription");
 
 
-    /*
-       If the constellation isn't present,
-       safely stop this file.
-    */
-
-    if (!network || !wrapper) {
+    if (!section || !wrapper) {
         return;
     }
+
+
+    /* -----------------------------------------------------
+       ACCESSIBILITY
+       ----------------------------------------------------- */
+
+    const reducedMotion =
+        window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+    const finePointer =
+        window.matchMedia(
+            "(pointer:fine)"
+        ).matches;
 
 
     /* -----------------------------------------------------
@@ -105,60 +120,103 @@
 
 
     /* -----------------------------------------------------
-       ACCESSIBILITY
-       ----------------------------------------------------- */
-
-    const prefersReducedMotion =
-        window.matchMedia &&
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-
-    /* -----------------------------------------------------
-       HELPER:
-       IDENTIFY AGENT
+       AGENT HELPERS
        ----------------------------------------------------- */
 
     function getAgentKey(agent) {
 
         if (!agent) return null;
 
-        return Object.keys(agentData).find(key =>
-            agent.classList.contains(key)
+        return Object.keys(agentData).find(
+            key => agent.classList.contains(key)
         ) || null;
 
     }
 
 
+    function getBeam(key) {
+
+        return document.getElementById(
+            `beam-${key}`
+        );
+
+    }
+
+
     /* -----------------------------------------------------
-       AGENT INFORMATION PANEL
+       INITIAL CSS VARIABLES
        ----------------------------------------------------- */
 
-    function updateAgentInfo(key) {
+    agents.forEach(agent => {
 
-        if (!key || !agentData[key]) return;
+        gsap.set(agent, {
 
-        const data = agentData[key];
+            "--motion-x": "0px",
+            "--motion-y": "0px",
+            "--mouse-x": "0px",
+            "--mouse-y": "0px",
+            "--depth-scale": 1
+
+        });
+
+    });
+
+
+    /* -----------------------------------------------------
+       INFORMATION PANEL
+       ----------------------------------------------------- */
+
+    let infoAnimation;
+
+    function updateInformation(key) {
+
+        if (!key || !agentData[key]) {
+            return;
+        }
+
+        const data =
+            agentData[key];
+
+
+        if (infoAnimation) {
+            infoAnimation.kill();
+        }
+
+
+        infoAnimation =
+            gsap.timeline();
+
 
         if (title) {
 
-            gsap.to(title, {
+            infoAnimation.to(title, {
+
                 opacity: 0,
-                y: 8,
-                duration: 0.18,
+                y: 10,
+
+                duration: 0.2,
+
                 ease: "power2.out",
+
                 onComplete: () => {
 
                     title.textContent =
                         data.title;
 
-                    gsap.to(title, {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.45,
-                        ease: "power3.out"
-                    });
-
                 }
+
+            });
+
+
+            infoAnimation.to(title, {
+
+                opacity: 1,
+                y: 0,
+
+                duration: 0.45,
+
+                ease: "power3.out"
+
             });
 
         }
@@ -166,24 +224,34 @@
 
         if (description) {
 
-            gsap.to(description, {
+            infoAnimation.to(description, {
+
                 opacity: 0,
-                y: 8,
-                duration: 0.18,
+                y: 10,
+
+                duration: 0.2,
+
                 ease: "power2.out",
+
                 onComplete: () => {
 
                     description.textContent =
                         data.desc;
 
-                    gsap.to(description, {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.45,
-                        ease: "power3.out"
-                    });
-
                 }
+
+            }, "<");
+
+
+            infoAnimation.to(description, {
+
+                opacity: 1,
+                y: 0,
+
+                duration: 0.45,
+
+                ease: "power3.out"
+
             });
 
         }
@@ -197,109 +265,167 @@
 
     function activateAgent(agent) {
 
-        if (!agent) return;
+        if (!agent || agent === core) {
+            return;
+        }
 
         const key =
             getAgentKey(agent);
 
-        if (!key) return;
-
-        updateAgentInfo(key);
-
-        /*
-           Remove active state from other agents.
-        */
-
-        agents.forEach(item => {
-
-            if (item !== core && item !== agent) {
-
-                item.classList.remove("is-active");
-
-                gsap.to(item, {
-                    scale: 1,
-                    duration: 0.5,
-                    ease: "power3.out"
-                });
-
-            }
-
-        });
-
-
-        agent.classList.add("is-active");
-
-
-        /*
-           Bring selected agent forward.
-        */
-
-        gsap.to(agent, {
-            scale: 1.06,
-            duration: 0.65,
-            ease: "power3.out"
-        });
-
-
-        /*
-           Activate corresponding beam.
-        */
-
-        const beam =
-            document.getElementById(`beam-${key}`);
-
-        if (beam) {
-
-            gsap.killTweensOf(beam);
-
-            gsap.to(beam, {
-                stroke: "rgba(76,201,255,.9)",
-                strokeWidth: 2.5,
-                opacity: 1,
-                duration: 0.5,
-                ease: "power2.out"
-            });
-
+        if (!key) {
+            return;
         }
 
 
-        /*
-           Dim inactive beams slightly.
-        */
+        updateInformation(key);
 
-        beams.forEach(item => {
 
-            if (item !== beam) {
+        agents.forEach(node => {
 
-                gsap.to(item, {
-                    opacity: 0.22,
-                    duration: 0.45,
-                    ease: "power2.out"
-                });
-
+            if (node === core) {
+                return;
             }
 
+            node.classList.remove(
+                "is-active"
+            );
+
+            gsap.to(node, {
+
+                "--depth-scale": 0.96,
+
+                duration: 0.5,
+
+                ease: "power3.out"
+
+            });
+
         });
+
+
+        agent.classList.add(
+            "is-active"
+        );
+
+
+        gsap.to(agent, {
+
+            "--depth-scale": 1.08,
+
+            duration: 0.6,
+
+            ease: "power3.out"
+
+        });
+
+
+        /* ---------------------------------------------
+           Beam activation
+           --------------------------------------------- */
+
+        const activeBeam =
+            getBeam(key);
+
+
+        beams.forEach(beam => {
+
+            gsap.to(beam, {
+
+                opacity:
+                    beam === activeBeam
+                        ? 1
+                        : 0.18,
+
+                stroke:
+                    beam === activeBeam
+                        ? "rgba(76,201,255,.95)"
+                        : "rgba(255,255,255,.15)",
+
+                strokeWidth:
+                    beam === activeBeam
+                        ? 2.5
+                        : 1.5,
+
+                duration: 0.45,
+
+                ease: "power2.out"
+
+            });
+
+        });
+
+
+        /* ---------------------------------------------
+           Energy pulse through active beam
+           --------------------------------------------- */
+
+        if (activeBeam && !reducedMotion) {
+
+            gsap.killTweensOf(
+                activeBeam,
+                "strokeDashoffset"
+            );
+
+
+            gsap.fromTo(
+
+                activeBeam,
+
+                {
+                    strokeDasharray:
+                        "4 18",
+
+                    strokeDashoffset:
+                        160
+
+                },
+
+                {
+                    strokeDashoffset:
+                        -160,
+
+                    duration:
+                        1.8,
+
+                    repeat:
+                        2,
+
+                    ease:
+                        "none"
+
+                }
+
+            );
+
+        }
 
     }
 
 
     /* -----------------------------------------------------
-       RESET CONSTELLATION
+       RESET AGENT NETWORK
        ----------------------------------------------------- */
 
-    function resetAgents() {
+    function resetNetwork() {
 
-        agents.forEach(agent => {
+        agents.forEach(node => {
 
-            if (agent === core) return;
+            if (node === core) {
+                return;
+            }
 
-            agent.classList.remove("is-active");
+            node.classList.remove(
+                "is-active"
+            );
 
-            gsap.to(agent, {
-                scale: 1,
-                duration: 0.6,
+            gsap.to(node, {
+
+                "--depth-scale": 1,
+
+                duration: 0.55,
+
                 ease: "power3.out"
+
             });
 
         });
@@ -308,11 +434,18 @@
         beams.forEach(beam => {
 
             gsap.to(beam, {
-                stroke: "rgba(255,255,255,.15)",
+
+                opacity: 0.65,
+
+                stroke:
+                    "rgba(255,255,255,.15)",
+
                 strokeWidth: 1.5,
-                opacity: 1,
-                duration: 0.6,
+
+                duration: 0.55,
+
                 ease: "power2.out"
+
             });
 
         });
@@ -321,51 +454,52 @@
 
 
     /* -----------------------------------------------------
-       AGENT HOVER / POINTER INTERACTION
+       AGENT INTERACTION
        ----------------------------------------------------- */
 
     agents.forEach(agent => {
 
-        if (agent === core) return;
+        if (agent === core) {
+            return;
+        }
+
 
         const key =
             getAgentKey(agent);
 
-        if (!key) return;
+        if (!key) {
+            return;
+        }
 
 
-        agent.addEventListener("mouseenter", () => {
-
-            activateAgent(agent);
-
-        });
-
-
-        agent.addEventListener("mouseleave", () => {
-
-            resetAgents();
-
-        });
+        agent.setAttribute(
+            "tabindex",
+            "0"
+        );
 
 
-        /*
-           Keyboard accessibility.
-        */
-
-        agent.setAttribute("tabindex", "0");
-
-        agent.addEventListener("focus", () => {
-
-            activateAgent(agent);
-
-        });
+        agent.addEventListener(
+            "mouseenter",
+            () => activateAgent(agent)
+        );
 
 
-        agent.addEventListener("blur", () => {
+        agent.addEventListener(
+            "mouseleave",
+            resetNetwork
+        );
 
-            resetAgents();
 
-        });
+        agent.addEventListener(
+            "focus",
+            () => activateAgent(agent)
+        );
+
+
+        agent.addEventListener(
+            "blur",
+            resetNetwork
+        );
 
     });
 
@@ -374,30 +508,18 @@
        CONSTELLATION INTRO
        ----------------------------------------------------- */
 
-    function constellationIntro() {
-
-        if (prefersReducedMotion) {
-
-            gsap.set(agents, {
-                opacity: 1,
-                scale: 1
-            });
-
-            return;
-
-        }
-
+    if (!reducedMotion) {
 
         gsap.set(agents, {
             opacity: 0,
-            scale: 0.72
+            "--depth-scale": 0.65
         });
 
 
         gsap.set(beams, {
             opacity: 0,
-            strokeDasharray: "8 14",
-            strokeDashoffset: 120
+            strokeDasharray: "8 16",
+            strokeDashoffset: 160
         });
 
 
@@ -405,123 +527,143 @@
             gsap.timeline({
 
                 scrollTrigger: {
-                    trigger: network,
-                    start: "top 70%",
-                    once: true
+
+                    trigger:
+                        section,
+
+                    start:
+                        "top 72%",
+
+                    once:
+                        true
+
                 }
 
             });
 
 
-        /*
-           Core appears first.
-        */
+        /* Core */
 
         intro.to(core, {
 
             opacity: 1,
-            scale: 1,
 
-            duration: 1.4,
+            "--depth-scale": 1,
+
+            duration: 1.5,
 
             ease: "power4.out"
 
         });
 
 
-        /*
-           Agents emerge outward.
-        */
+        /* Peripheral nodes */
 
         intro.to(
-            agents.filter(agent => agent !== core),
+
+            agents.filter(
+                node => node !== core
+            ),
+
             {
 
                 opacity: 1,
-                scale: 1,
 
-                duration: 1.1,
+                "--depth-scale": 1,
+
+                duration: 1.2,
 
                 stagger: {
+
                     each: 0.12,
+
                     from: "center"
+
                 },
 
-                ease: "back.out(1.5)"
+                ease: "back.out(1.4)"
 
             },
+
             "-=0.7"
+
         );
 
 
-        /*
-           Connections reveal after nodes.
-        */
+        /* Network */
 
-        intro.to(beams, {
+        intro.to(
 
-            opacity: 1,
-            strokeDashoffset: 0,
+            beams,
 
-            duration: 1.5,
+            {
 
-            stagger: 0.1,
+                opacity: 0.65,
 
-            ease: "power3.out"
+                strokeDashoffset: 0,
 
-        }, "-=0.8");
+                duration: 1.8,
+
+                stagger: 0.1,
+
+                ease: "power3.out"
+
+            },
+
+            "-=0.8"
+
+        );
 
     }
 
 
-    constellationIntro();
-
-
     /* -----------------------------------------------------
-       ENERGY PULSE — AI CORE
+       AI CORE BREATHING
        ----------------------------------------------------- */
 
-    if (core && !prefersReducedMotion) {
+    if (core && !reducedMotion) {
 
-        const corePulse =
-            gsap.timeline({
-                repeat: -1,
-                yoyo: true
-            });
+        gsap.to(core, {
 
+            "--core-glow":
+                "rgba(76,201,255,.55)",
 
-        corePulse.to(core, {
+            "--depth-scale":
+                1.045,
 
-            scale: 1.045,
+            duration:
+                2.8,
 
-            boxShadow:
-                "0 0 70px rgba(76,201,255,.55), 0 0 130px rgba(76,201,255,.18)",
+            repeat:
+                -1,
 
-            duration: 2.6,
+            yoyo:
+                true,
 
-            ease: "sine.inOut"
+            ease:
+                "sine.inOut"
 
         });
 
 
-        /*
-           Core glow gets a slower secondary pulse.
-        */
-
-        const coreGlow =
-            core.querySelector(".core-glow");
+        const glow =
+            core.querySelector(
+                ".core-glow"
+            );
 
 
-        if (coreGlow) {
+        if (glow) {
 
-            gsap.to(coreGlow, {
+            gsap.to(glow, {
 
-                scale: 1.35,
-                opacity: 0.35,
+                scale: 1.4,
+
+                opacity: 0.3,
 
                 duration: 3.5,
 
                 repeat: -1,
+
                 yoyo: true,
 
                 ease: "sine.inOut"
@@ -534,24 +676,50 @@
 
 
     /* -----------------------------------------------------
-       DATA BEAM MOTION
+       AGENT SPATIAL FLOAT
        ----------------------------------------------------- */
 
-    if (!prefersReducedMotion) {
+    if (!reducedMotion) {
 
-        beams.forEach((beam, index) => {
+        agents.forEach((agent, index) => {
 
-            gsap.to(beam, {
+            if (agent === core) {
+                return;
+            }
 
-                strokeDashoffset: -120,
 
-                duration: 5 + index * 0.45,
+            const distance =
+                4 + (index % 3) * 2;
 
-                repeat: -1,
+            const vertical =
+                index % 2 === 0
+                    ? -distance
+                    : distance;
 
-                ease: "none",
 
-                delay: index * 0.3
+            gsap.to(agent, {
+
+                "--motion-x":
+                    `${distance}px`,
+
+                "--motion-y":
+                    `${vertical}px`,
+
+                duration:
+                    4.5 +
+                    index * 0.45,
+
+                repeat:
+                    -1,
+
+                yoyo:
+                    true,
+
+                ease:
+                    "sine.inOut",
+
+                delay:
+                    index * 0.3
 
             });
 
@@ -561,51 +729,30 @@
 
 
     /* -----------------------------------------------------
-       AGENT FLOATING MOTION
+       CONTINUOUS DATA FLOW
        ----------------------------------------------------- */
 
-    if (!prefersReducedMotion) {
+    if (!reducedMotion) {
 
-        agents.forEach((agent, index) => {
+        beams.forEach((beam, index) => {
 
-            if (agent === core) return;
+            gsap.to(beam, {
 
-
-            const baseX =
-                agent.classList.contains("analytics") ||
-                agent.classList.contains("visual")
-                    ? "-50%"
-                    : "0";
-
-
-            /*
-               We animate CSS variables rather than
-               overwriting positional transforms.
-            */
-
-            gsap.set(agent, {
-                "--float-x": "0px",
-                "--float-y": "0px"
-            });
-
-
-            gsap.to(agent, {
-
-                "--float-x":
-                    `${Math.sin(index + 1) * 8}px`,
-
-                "--float-y":
-                    `${index % 2 === 0 ? -10 : 10}px`,
+                strokeDashoffset:
+                    -160,
 
                 duration:
-                    4.5 + index * 0.35,
+                    6 +
+                    index * 0.6,
 
-                repeat: -1,
-                yoyo: true,
+                repeat:
+                    -1,
 
-                ease: "sine.inOut",
+                ease:
+                    "none",
 
-                delay: index * 0.25
+                delay:
+                    index * 0.4
 
             });
 
@@ -618,75 +765,90 @@
        MOUSE GRAVITY
        ----------------------------------------------------- */
 
-    let pointerX = 0;
-    let pointerY = 0;
+    if (
+        finePointer &&
+        !reducedMotion
+    ) {
 
-    let targetX = 0;
-    let targetY = 0;
+        let mouseX = 0;
+        let mouseY = 0;
 
-
-    if (!prefersReducedMotion && window.matchMedia("(pointer:fine)").matches) {
-
-        wrapper.addEventListener("pointermove", event => {
-
-            const rect =
-                wrapper.getBoundingClientRect();
-
-            pointerX =
-                event.clientX - rect.left;
-
-            pointerY =
-                event.clientY - rect.top;
-
-            targetX =
-                (pointerX / rect.width - 0.5) * 2;
-
-            targetY =
-                (pointerY / rect.height - 0.5) * 2;
-
-        });
+        let currentX = 0;
+        let currentY = 0;
 
 
-        wrapper.addEventListener("pointerleave", () => {
+        wrapper.addEventListener(
+            "pointermove",
+            event => {
 
-            targetX = 0;
-            targetY = 0;
-
-        });
+                const rect =
+                    wrapper.getBoundingClientRect();
 
 
-        /*
-           Smooth gravity loop.
-        */
+                mouseX =
+                    (
+                        event.clientX -
+                        rect.left
+                    ) / rect.width - 0.5;
+
+
+                mouseY =
+                    (
+                        event.clientY -
+                        rect.top
+                    ) / rect.height - 0.5;
+
+            }
+        );
+
+
+        wrapper.addEventListener(
+            "pointerleave",
+            () => {
+
+                mouseX = 0;
+                mouseY = 0;
+
+            }
+        );
+
 
         gsap.ticker.add(() => {
 
-            agents.forEach((agent, index) => {
+            currentX +=
+                (mouseX - currentX) *
+                0.035;
 
-                if (agent === core) return;
+            currentY +=
+                (mouseY - currentY) *
+                0.035;
 
 
-                const strength =
-                    index % 2 === 0 ? 7 : 4;
+            agents.forEach(
+                (agent, index) => {
+
+                    const strength =
+                        agent === core
+                            ? 18
+                            : 8 -
+                              Math.min(
+                                  index,
+                                  4
+                              );
 
 
-                gsap.to(agent, {
+                    gsap.set(agent, {
 
-                    "--mouse-x":
-                        `${targetX * strength}px`,
+                        "--mouse-x":
+                            `${currentX * strength}px`,
 
-                    "--mouse-y":
-                        `${targetY * strength}px`,
+                        "--mouse-y":
+                            `${currentY * strength}px`
 
-                    duration: 1.2,
+                    });
 
-                    overwrite: "auto",
-
-                    ease: "power3.out"
-
-                });
-
-            });
+                }
+            );
 
         });
 
@@ -694,81 +856,245 @@
 
 
     /* -----------------------------------------------------
-       PARTICLE FIELD
+       CORE CURSOR RESPONSE
+       ----------------------------------------------------- */
+
+    if (
+        core &&
+        finePointer &&
+        !reducedMotion
+    ) {
+
+        wrapper.addEventListener(
+            "pointermove",
+            event => {
+
+                const rect =
+                    wrapper.getBoundingClientRect();
+
+
+                const x =
+                    event.clientX -
+                    (
+                        rect.left +
+                        rect.width / 2
+                    );
+
+
+                const y =
+                    event.clientY -
+                    (
+                        rect.top +
+                        rect.height / 2
+                    );
+
+
+                gsap.to(core, {
+
+                    "--core-x":
+                        `${x * 0.018}px`,
+
+                    "--core-y":
+                        `${y * 0.018}px`,
+
+                    duration:
+                        1.2,
+
+                    ease:
+                        "power3.out",
+
+                    overwrite:
+                        "auto"
+
+                });
+
+            }
+        );
+
+
+        wrapper.addEventListener(
+            "pointerleave",
+            () => {
+
+                gsap.to(core, {
+
+                    "--core-x":
+                        "0px",
+
+                    "--core-y":
+                        "0px",
+
+                    duration:
+                        1.4,
+
+                    ease:
+                        "elastic.out(1,.5)"
+
+                });
+
+            }
+        );
+
+    }
+
+
+    /* -----------------------------------------------------
+       PARTICLE SYSTEM
        ----------------------------------------------------- */
 
     if (
         particleField &&
-        !prefersReducedMotion &&
-        particleField.children.length === 0
+        particleField.children.length === 0 &&
+        !reducedMotion
     ) {
 
-        const particleCount =
-            window.innerWidth < 768 ? 35 : 80;
+        const count =
+            window.innerWidth < 768
+                ? 28
+                : 70;
 
 
-        for (let i = 0; i < particleCount; i++) {
+        for (
+            let i = 0;
+            i < count;
+            i++
+        ) {
 
             const particle =
-                document.createElement("span");
+                document.createElement(
+                    "span"
+                );
+
 
             particle.className =
                 "particle";
+
 
             particle.setAttribute(
                 "aria-hidden",
                 "true"
             );
 
+
             particleField.appendChild(
                 particle
             );
 
 
-            gsap.set(particle, {
+            gsap.set(
+                particle,
+                {
 
-                x:
-                    Math.random() *
-                    wrapper.offsetWidth,
+                    x:
+                        Math.random() *
+                        wrapper.offsetWidth,
 
-                y:
-                    Math.random() *
-                    wrapper.offsetHeight,
+                    y:
+                        Math.random() *
+                        wrapper.offsetHeight,
 
-                opacity:
-                    0.15 +
-                    Math.random() * 0.55,
+                    opacity:
+                        0.1 +
+                        Math.random() *
+                        0.5,
 
-                scale:
-                    0.5 +
-                    Math.random() * 1.5
+                    scale:
+                        0.4 +
+                        Math.random() *
+                        1.4
 
-            });
+                }
+            );
 
 
-            gsap.to(particle, {
+            gsap.to(
+                particle,
+                {
 
-                x:
-                    `+=${Math.random() * 100 - 50}`,
+                    x:
+                        `+=${Math.random() * 140 - 70}`,
 
-                y:
-                    `+=${Math.random() * 100 - 50}`,
+                    y:
+                        `+=${Math.random() * 140 - 70}`,
 
-                opacity:
-                    0.1 +
-                    Math.random() * 0.5,
+                    opacity:
+                        0.05 +
+                        Math.random() *
+                        0.45,
 
-                duration:
-                    8 + Math.random() * 12,
+                    duration:
+                        8 +
+                        Math.random() * 14,
 
-                repeat: -1,
+                    repeat:
+                        -1,
 
-                yoyo: true,
+                    yoyo:
+                        true,
 
-                ease: "sine.inOut",
+                    ease:
+                        "sine.inOut",
 
-                delay:
-                    Math.random() * 4
+                    delay:
+                        Math.random() * 5
+
+                }
+            );
+
+        }
+
+    }
+
+
+    /* -----------------------------------------------------
+       GRID PARALLAX / MOTION
+       ----------------------------------------------------- */
+
+    if (
+        grid &&
+        !reducedMotion
+    ) {
+
+        gsap.to(grid, {
+
+            backgroundPosition:
+                "0 900px",
+
+            duration:
+                90,
+
+            repeat:
+                -1,
+
+            ease:
+                "none"
+
+        });
+
+
+        if (typeof ScrollTrigger !== "undefined") {
+
+            gsap.to(grid, {
+
+                yPercent: -8,
+
+                ease: "none",
+
+                scrollTrigger: {
+
+                    trigger:
+                        section,
+
+                    start:
+                        "top bottom",
+
+                    end:
+                        "bottom top",
+
+                    scrub:
+                        1
+
+                }
 
             });
 
@@ -778,145 +1104,85 @@
 
 
     /* -----------------------------------------------------
-       SLOW CONSTELLATION ROTATION
-       ----------------------------------------------------- */
-
-    if (!prefersReducedMotion) {
-
-        gsap.to(wrapper, {
-
-            "--network-rotation": "1deg",
-
-            duration: 12,
-
-            repeat: -1,
-
-            yoyo: true,
-
-            ease: "sine.inOut"
-
-        });
-
-    }
-
-
-    /* -----------------------------------------------------
-       MAGNETIC CORE RESPONSE
-       ----------------------------------------------------- */
-
-    if (
-        core &&
-        !prefersReducedMotion &&
-        window.matchMedia("(pointer:fine)").matches
-    ) {
-
-        wrapper.addEventListener("pointermove", event => {
-
-            const rect =
-                wrapper.getBoundingClientRect();
-
-            const x =
-                event.clientX -
-                (rect.left + rect.width / 2);
-
-            const y =
-                event.clientY -
-                (rect.top + rect.height / 2);
-
-            gsap.to(core, {
-
-                x: x * 0.025,
-                y: y * 0.025,
-
-                duration: 1,
-
-                ease: "power3.out",
-
-                overwrite: "auto"
-
-            });
-
-        });
-
-
-        wrapper.addEventListener("pointerleave", () => {
-
-            gsap.to(core, {
-
-                x: 0,
-                y: 0,
-
-                duration: 1.2,
-
-                ease: "elastic.out(1,0.5)"
-
-            });
-
-        });
-
-    }
-
-
-    /* -----------------------------------------------------
-       SECTION REVEAL
+       HEADER REVEAL
        ----------------------------------------------------- */
 
     if (
         typeof ScrollTrigger !== "undefined" &&
-        !prefersReducedMotion
+        !reducedMotion
     ) {
 
-        gsap.from(".agent-header", {
+        gsap.from(
+            ".agent-header",
+            {
 
-            opacity: 0,
-            y: 70,
+                opacity: 0,
+                y: 80,
 
-            duration: 1.2,
+                duration:
+                    1.3,
 
-            ease: "power4.out",
+                ease:
+                    "power4.out",
 
-            scrollTrigger: {
+                scrollTrigger: {
 
-                trigger: network,
-                start: "top 82%",
+                    trigger:
+                        section,
 
-                toggleActions:
-                    "play none none reverse"
+                    start:
+                        "top 88%",
 
-            }
+                    toggleActions:
+                        "play none none reverse"
 
-        });
-
-
-        gsap.from(".agent-info", {
-
-            opacity: 0,
-            y: 40,
-
-            duration: 1,
-
-            ease: "power3.out",
-
-            scrollTrigger: {
-
-                trigger: ".agent-info",
-                start: "top 90%",
-
-                toggleActions:
-                    "play none none reverse"
+                }
 
             }
+        );
 
-        });
+
+        gsap.from(
+            ".agent-info",
+            {
+
+                opacity: 0,
+                y: 50,
+
+                duration:
+                    1.1,
+
+                ease:
+                    "power4.out",
+
+                scrollTrigger: {
+
+                    trigger:
+                        ".agent-info",
+
+                    start:
+                        "top 90%",
+
+                    toggleActions:
+                        "play none none reverse"
+
+                }
+
+            }
+        );
 
     }
 
 
     /* -----------------------------------------------------
-       INITIAL INFORMATION
+       DEFAULT INFORMATION
        ----------------------------------------------------- */
 
-    if (title && description) {
+    if (
+        title &&
+        description &&
+        agentData.discovery
+    ) {
 
         title.textContent =
             agentData.discovery.title;
@@ -928,28 +1194,36 @@
 
 
     /* -----------------------------------------------------
-       CLEAN RESIZE
+       RESIZE
        ----------------------------------------------------- */
 
     let resizeTimer;
 
-    window.addEventListener("resize", () => {
+    window.addEventListener(
+        "resize",
+        () => {
 
-        clearTimeout(resizeTimer);
+            clearTimeout(
+                resizeTimer
+            );
 
-        resizeTimer = setTimeout(() => {
 
-            if (
-                typeof ScrollTrigger !== "undefined"
-            ) {
+            resizeTimer =
+                setTimeout(() => {
 
-                ScrollTrigger.refresh();
+                    if (
+                        typeof ScrollTrigger !==
+                        "undefined"
+                    ) {
 
-            }
+                        ScrollTrigger.refresh();
 
-        }, 250);
+                    }
 
-    });
+                }, 300);
+
+        }
+    );
 
 
 })();
