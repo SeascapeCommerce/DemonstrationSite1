@@ -6917,3 +6917,18 @@ body::before{
     mix-blend-mode:screen;
 
 }
+
+
+.core::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-50px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(76,201,255,.15);
+
+}
