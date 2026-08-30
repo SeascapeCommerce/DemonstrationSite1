@@ -6778,3 +6778,52 @@ img{
     font-weight:300;
 
 }
+
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:-10%;
+
+    pointer-events:none;
+
+    z-index:-2;
+
+    background:
+
+    radial-gradient(
+        circle at 30% 30%,
+        rgba(76,201,255,.08),
+        transparent 40%
+    ),
+
+    radial-gradient(
+        circle at 80% 60%,
+        rgba(255,255,255,.03),
+        transparent 45%
+    );
+
+    animation:
+    atmosphere 25s linear infinite;
+
+}
+
+
+@keyframes atmosphere{
+
+    0%{
+        transform:translate(0,0);
+    }
+
+    50%{
+        transform:translate(-2%,2%);
+    }
+
+    100%{
+        transform:translate(0,0);
+    }
+
+}
