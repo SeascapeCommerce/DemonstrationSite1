@@ -1,342 +1,296 @@
-<script src="js/launch.js"></script>
 /* =====================================================
-   SEASCAPE COMMERCE
-   LAUNCH SECTION
+   SEASCAPE — LAUNCH SYSTEM
    ===================================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
+gsap.registerPlugin(ScrollTrigger);
 
-    if (
-        typeof gsap === "undefined" ||
-        typeof ScrollTrigger === "undefined"
-    ) {
-        console.warn(
-            "GSAP or ScrollTrigger is unavailable."
-        );
 
-        return;
+/* =====================================================
+   INITIAL STATE
+   ===================================================== */
+
+gsap.set(
+    [
+        ".launch-label",
+        ".launch-title",
+        ".launch-description",
+        ".launch-actions",
+        ".launch-meta"
+    ],
+    {
+        opacity:0,
+        y:60
+    }
+);
+
+
+/* =====================================================
+   ENTRANCE ANIMATION
+   ===================================================== */
+
+const launchTimeline = gsap.timeline({
+
+    scrollTrigger:{
+        trigger:".launch-section",
+        start:"top 75%",
+        once:true
     }
 
+});
 
-    gsap.registerPlugin(ScrollTrigger);
 
+launchTimeline
+    .to(".launch-label",{
 
-    const launch =
-        document.querySelector(".launch-section");
+        opacity:1,
+        y:0,
 
+        duration:.8,
 
-    if (!launch) return;
+        ease:"power3.out"
 
+    })
 
-    const title =
-        launch.querySelector(".launch-title");
+    .to(".launch-title",{
 
+        opacity:1,
+        y:0,
 
-    const eyebrow =
-        launch.querySelector(".launch-eyebrow");
+        duration:1.2,
 
+        ease:"power4.out"
 
-    const description =
-        launch.querySelector(".launch-description");
+    },"-=.45")
 
+    .to(".launch-description",{
 
-    const actions =
-        launch.querySelector(".launch-actions");
+        opacity:1,
+        y:0,
 
+        duration:.9,
 
-    const orbitSystem =
-        launch.querySelector(".launch-orbit-system");
+        ease:"power3.out"
 
+    },"-=.65")
 
-    const grid =
-        launch.querySelector(".launch-grid");
+    .to(".launch-actions",{
 
+        opacity:1,
+        y:0,
 
-    const glows =
-        launch.querySelectorAll(".launch-glow");
+        duration:.8,
 
+        ease:"power3.out"
 
-    /* =================================================
-       INITIAL STATE
-       ================================================= */
+    },"-=.5")
 
-    gsap.set(
-        [
-            eyebrow,
-            title,
-            description,
-            actions
-        ],
-        {
-            opacity:0,
-            y:80
-        }
-    );
+    .to(".launch-meta",{
 
+        opacity:1,
+        y:0,
 
-    /* =================================================
-       SCROLL REVEAL
-       ================================================= */
+        duration:.7,
 
-    const reveal =
-        gsap.timeline({
+        ease:"power3.out"
 
-            scrollTrigger:{
-                trigger:launch,
-                start:"top 70%",
-                once:true
-            }
+    },"-=.4");
 
-        });
 
+/* =====================================================
+   ORBIT ROTATION
+   ===================================================== */
 
-    reveal
-        .to(
-            eyebrow,
-            {
-                opacity:1,
-                y:0,
-                duration:1,
-                ease:"power4.out"
-            }
-        )
-
-        .to(
-            title,
-            {
-                opacity:1,
-                y:0,
-                duration:1.4,
-                ease:"power4.out"
-            },
-            "-=.65"
-        )
-
-        .to(
-            description,
-            {
-                opacity:1,
-                y:0,
-                duration:1,
-                ease:"power3.out"
-            },
-            "-=.8"
-        )
-
-        .to(
-            actions,
-            {
-                opacity:1,
-                y:0,
-                duration:.9,
-                ease:"power3.out"
-            },
-            "-=.65"
-        );
-
-
-    /* =================================================
-       GRID MOVEMENT
-       ================================================= */
-
-    gsap.to(
-        grid,
-        {
-            backgroundPosition:"0 900px",
-            duration:45,
-            repeat:-1,
-            ease:"none"
-        }
-    );
-
-
-    /* =================================================
-       ORBIT ROTATION
-       ================================================= */
-
-    gsap.to(
-        ".launch-orbit-one",
-        {
-            rotation:360,
-            duration:18,
-            repeat:-1,
-            ease:"none"
-        }
-    );
-
-
-    gsap.to(
-        ".launch-orbit-two",
-        {
-            rotation:-360,
-            duration:30,
-            repeat:-1,
-            ease:"none"
-        }
-    );
-
-
-    gsap.to(
-        ".launch-orbit-three",
-        {
-            rotation:360,
-            duration:45,
-            repeat:-1,
-            ease:"none"
-        }
-    );
-
-
-    /* =================================================
-       CORE BREATHING
-       ================================================= */
-
-    gsap.to(
-        ".launch-core",
-        {
-            scale:1.12,
-            duration:2.4,
-            repeat:-1,
-            yoyo:true,
-            ease:"sine.inOut"
-        }
-    );
-
-
-    gsap.to(
-        ".launch-core-inner",
-        {
-            scale:1.35,
-            opacity:.7,
-            duration:1.8,
-            repeat:-1,
-            yoyo:true,
-            ease:"sine.inOut"
-        }
-    );
-
-
-    /* =================================================
-       ATMOSPHERIC MOVEMENT
-       ================================================= */
-
-    gsap.to(
-        glows,
-        {
-            x:"random(-80,80)",
-            y:"random(-60,60)",
-            scale:"random(.9,1.15)",
-            duration:"random(8,14)",
-            repeat:-1,
-            yoyo:true,
-            ease:"sine.inOut",
-            stagger:.5
-        }
-    );
-
-
-    /* =================================================
-       MOUSE GRAVITY
-       ================================================= */
-
-    const pointer = {
-
-        x:0,
-        y:0
-
-    };
-
-
-    launch.addEventListener(
-        "pointermove",
-        event => {
-
-            const rect =
-                launch.getBoundingClientRect();
-
-
-            pointer.x =
-                (event.clientX - rect.left)
-                / rect.width
-                - .5;
-
-
-            pointer.y =
-                (event.clientY - rect.top)
-                / rect.height
-                - .5;
-
-
-            gsap.to(
-                orbitSystem,
-                {
-                    x:pointer.x * 35,
-                    y:pointer.y * 25,
-                    duration:1.2,
-                    ease:"power3.out"
-                }
-            );
-
-
-            gsap.to(
-                title,
-                {
-                    x:pointer.x * -12,
-                    duration:1.2,
-                    ease:"power3.out"
-                }
-            );
-
-        }
-    );
-
-
-    launch.addEventListener(
-        "pointerleave",
-        () => {
-
-            gsap.to(
-                orbitSystem,
-                {
-                    x:0,
-                    y:0,
-                    duration:1.5,
-                    ease:"power3.out"
-                }
-            );
-
-
-            gsap.to(
-                title,
-                {
-                    x:0,
-                    duration:1.5,
-                    ease:"power3.out"
-                }
-            );
-
-        }
-    );
-
-
-    /* =================================================
-       PARALLAX ON SCROLL
-       ================================================= */
-
-    gsap.to(
-        orbitSystem,
-        {
-            yPercent:18,
-
-            scrollTrigger:{
-                trigger:launch,
-                start:"top bottom",
-                end:"bottom top",
-                scrub:1
-            }
-
-        }
-    );
+gsap.to(".launch-orbit-1",{
 
+    rotation:360,
+
+    duration:30,
+
+    repeat:-1,
+
+    ease:"none"
 
 });
+
+
+gsap.to(".launch-orbit-2",{
+
+    rotation:-360,
+
+    duration:45,
+
+    repeat:-1,
+
+    ease:"none"
+
+});
+
+
+gsap.to(".launch-orbit-3",{
+
+    rotation:360,
+
+    duration:70,
+
+    repeat:-1,
+
+    ease:"none"
+
+});
+
+
+/* =====================================================
+   CORE BREATHING
+   ===================================================== */
+
+gsap.to(".launch-core",{
+
+    scale:1.35,
+
+    duration:2.5,
+
+    repeat:-1,
+
+    yoyo:true,
+
+    ease:"sine.inOut"
+
+});
+
+
+gsap.to(".launch-core-inner",{
+
+    scale:1.25,
+
+    opacity:.55,
+
+    duration:2.5,
+
+    repeat:-1,
+
+    yoyo:true,
+
+    ease:"sine.inOut"
+
+});
+
+
+/* =====================================================
+   GRID MOTION
+   ===================================================== */
+
+gsap.to(".launch-grid",{
+
+    backgroundPosition:
+        "0 800px",
+
+    duration:70,
+
+    repeat:-1,
+
+    ease:"none"
+
+});
+
+
+/* =====================================================
+   FLOATING GLOWS
+   ===================================================== */
+
+gsap.to(".launch-glow-a",{
+
+    x:100,
+    y:-80,
+
+    duration:12,
+
+    repeat:-1,
+
+    yoyo:true,
+
+    ease:"sine.inOut"
+
+});
+
+
+gsap.to(".launch-glow-b",{
+
+    x:-120,
+    y:70,
+
+    duration:15,
+
+    repeat:-1,
+
+    yoyo:true,
+
+    ease:"sine.inOut"
+
+});
+
+
+/* =====================================================
+   MOUSE GRAVITY
+   ===================================================== */
+
+const launchSection =
+    document.querySelector(".launch-section");
+
+const launchSystem =
+    document.querySelector(".launch-orbit-system");
+
+
+if(launchSection && launchSystem){
+
+    launchSection.addEventListener(
+        "mousemove",
+        (event)=>{
+
+            const rect =
+                launchSection.getBoundingClientRect();
+
+            const x =
+                event.clientX -
+                rect.left -
+                rect.width / 2;
+
+            const y =
+                event.clientY -
+                rect.top -
+                rect.height / 2;
+
+
+            gsap.to(
+                launchSystem,
+                {
+                    x:
+                        `calc(-50% + ${x * .015}px)`,
+
+                    y:
+                        `calc(-50% + ${y * .015}px)`,
+
+                    duration:1.2,
+
+                    ease:"power3.out"
+
+                }
+            );
+
+
+            gsap.to(
+                ".launch-content",
+                {
+                    x:x * -.006,
+                    y:y * -.006,
+
+                    duration:1.4,
+
+                    ease:"power3.out"
+
+                }
+            );
+
+        }
+    );
+
+}
