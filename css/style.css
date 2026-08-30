@@ -6827,3 +6827,63 @@ body::before{
     }
 
 }
+
+/* ==========================================
+   LOADER
+========================================== */
+
+#loader{
+
+    position:fixed;
+
+    inset:0;
+
+    background:#050505;
+
+    z-index:99999;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:30px;
+
+}
+
+.loader-logo{
+
+    font-size:3rem;
+
+    letter-spacing:.5rem;
+
+    color:white;
+
+}
+
+.loader-line{
+
+    width:240px;
+
+    height:1px;
+
+    background:rgba(255,255,255,.15);
+
+    overflow:hidden;
+
+}
+
+.loader-line span{
+
+    display:block;
+
+    width:0%;
+
+    height:100%;
+
+    background:#4cc9ff;
+
+}
